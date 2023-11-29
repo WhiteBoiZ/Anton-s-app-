@@ -33,6 +33,10 @@
 
         </activity>
 
+        <activity android:name=".KitchenActivity">
+
+        </activity>
+
 
 
     </application>

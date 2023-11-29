@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         Button golvButton = findViewById(R.id.golvButton);
         Button bord1Button = findViewById(R.id.bord1Button);
         Button bord2Button = findViewById(R.id.bord2Button);
+        Button kitchenButton = findViewById(R.id.kokButton);
         golvButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,6 +39,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Start the GolvActivity when the Golv button is clicked
                 Intent intent = new Intent(MainActivity.this, Bord2Activity.class);
+                startActivity(intent);
+            }
+        });
+
+        kitchenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, KitchenActivity.class);
                 startActivity(intent);
             }
         });
