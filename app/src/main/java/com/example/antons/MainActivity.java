@@ -14,12 +14,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button golvButton = findViewById(R.id.GolvButton);
+        Button golvButton = findViewById(R.id.golvButton);
+        Button bord1Button = findViewById(R.id.bord1Button);
+        Button bord2Button = findViewById(R.id.bord2Button);
         golvButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Start the GolvActivity when the Golv button is clicked
                 Intent intent = new Intent(MainActivity.this, GolvActivity.class);
+                startActivity(intent);
+            }
+        });
+        bord1Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Start the GolvActivity when the Golv button is clicked
+                Intent intent = new Intent(MainActivity.this, Bord1Activity.class);
+                startActivity(intent);
+            }
+        });
+        bord2Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Start the GolvActivity when the Golv button is clicked
+                Intent intent = new Intent(MainActivity.this, Bord2Activity.class);
                 startActivity(intent);
             }
         });
