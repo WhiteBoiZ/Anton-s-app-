@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <Button
         android:id="@+id/barButton"
@@ -38,7 +39,7 @@
         android:id="@+id/bord1Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="180dp"
         android:layout_marginTop="20dp"
         android:text="Bord1"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,8 +80,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="8dp"
         android:text="Bord5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bord1Button" />
@@ -91,7 +92,7 @@
         android:layout_height="wrap_content"
 
         android:layout_marginStart="12dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:text="Bord6"
         app:layout_constraintStart_toEndOf="@+id/bord5Button"
         app:layout_constraintTop_toBottomOf="@+id/bord2Button" />
@@ -101,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:text="Bord7"
         app:layout_constraintStart_toEndOf="@+id/bord6Button"
         app:layout_constraintTop_toBottomOf="@+id/bord3Button" />
@@ -112,19 +113,100 @@
         android:layout_height="wrap_content"
 
         android:layout_marginStart="12dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:text="Bord8"
         app:layout_constraintStart_toEndOf="@+id/bord7Button"
         app:layout_constraintTop_toBottomOf="@+id/bord4Button" />
 
     <Button
         android:id="@+id/backButton"
-        android:layout_width="185dp"
-        android:layout_height="108dp"
+        android:layout_width="187dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="52dp"
         android:layout_marginBottom="32dp"
         android:text="Tillbaks"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="104dp"
+        android:layout_marginBottom="120dp"
+        android:text="Lägg till"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:layout_width="311dp"
+        android:layout_height="614dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="76dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <LinearLayout
+            android:id="@+id/menuOrderLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/fTagButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="Förrätt"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/vTagButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="Varmrätt"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/eTagButton"
+                android:layout_width="110dp"
+                android:layout_height="38dp"
+                android:text="Efterätt"
+                tools:ignore="TouchTargetSizeCheck" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:minHeight="48dp"
+            android:text="Scampi"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+        <!-- Lägg till fler Views här enligt designen, till exempel TextViews, EditTexts, Buttons etc. -->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="310dp"
+        android:layout_height="558dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginBottom="208dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="stuff"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
