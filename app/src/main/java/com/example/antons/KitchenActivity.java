@@ -13,6 +13,8 @@ public class KitchenActivity extends AppCompatActivity {
         setContentView(R.layout.kitchen_main);
 
         Button backButton = findViewById(R.id.backButton);
+        Button selectedButton = findViewById(R.id.kokButton);
+        selectedButton.setBackgroundResource(R.drawable.selected_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
