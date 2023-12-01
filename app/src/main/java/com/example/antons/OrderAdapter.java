@@ -13,18 +13,28 @@ import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
     private List<Order> orderList;
+
+
+    private OnTableClickListener onClickListener;
+
     public OrderAdapter(List<Order> orderList){
         this.orderList = orderList;
     }
+
+
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView order;
         private TextView table;
 
+        private TextView time;
+
+
+
         public ViewHolder(View itemView) {
             super(itemView);
-            order = (TextView) itemView.findViewById(R.id.orderText);
+            time = (TextView) itemView.findViewById(R.id.timeText);
             table = (TextView) itemView.findViewById(R.id.tableText);
         }
 
@@ -35,6 +45,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         public TextView getTable(){
             return table;
         }
+
+        public TextView getTime() {return time;}
     }
 
     @NonNull
@@ -49,10 +61,25 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Order order = orderList.get(position);
-        holder.table.setText(order.getTable());
-        holder.order.setText(order.getOrder());
+        holder.table.setText("Bord: " + order.getTable());
+        //holder.order.setText(order.getOrder());
+        holder.time.setText(order.getTime());
 
+        holder.table.setOnClickListener(view -> {
+            onClickListener.tableOnClick(order.getTable());
+        });
     }
+
+
+    public interface OnTableClickListener{
+        void tableOnClick(String table);
+    }
+
+    public void setOnTableClickListener(OnTableClickListener onClickListener){
+        this.onClickListener = onClickListener;
+    }
+
+
 
     @Override
     public int getItemCount() {

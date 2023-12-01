@@ -3,15 +3,20 @@ package com.example.antons;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.time.LocalTime;
 
-public class KitchenActivity extends AppCompatActivity {
+
+
+public class KitchenActivity extends AppCompatActivity implements OrderAdapter.OnTableClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,15 +26,28 @@ public class KitchenActivity extends AppCompatActivity {
         Button selectedButton = findViewById(R.id.kokButton);
         selectedButton.setBackgroundResource(R.drawable.selected_button);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        Order order1 = new Order("1","Fisk");
-        Order order2 = new Order("2","Kött");
-        List<Order> orderList = new ArrayList<Order>();
-        orderList.add(order1);
-        orderList.add(order2);
+        RecyclerView orderView = findViewById(R.id.orderView);
+
+
+        List<Order> orderList = new ArrayList<Order>(Arrays.asList(
+                new Order("1","Fish", "14:10"),
+                new Order("2","Meat", "15:40"),
+                new Order("3", "Chicken Curry", "18:30"),
+                new Order("4", "Vegetarian Pizza", "20:15"),
+                new Order("5", "Beef Stir Fry", "16:00"),
+                new Order("6", "Shrimp Scampi", "19:20"),
+                new Order("7", "Lasagna", "15:55"),
+                new Order("8", "Salmon Salad", "17:40"),
+                new Order("9", "Vegetable Curry", "21:05")));
+
         OrderAdapter orderAdapter = new OrderAdapter(orderList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(orderAdapter);
+        orderAdapter.setOnTableClickListener(this);
+        orderView.setLayoutManager(new LinearLayoutManager(this));
+        orderView.setAdapter(orderAdapter);
+
+
+        TextView textView = findViewById(R.id.tableText);
+
 
 
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -40,4 +58,11 @@ public class KitchenActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void tableOnClick(String table){
+        //Visa upp på vyn åt vänster
+    }
+
+
 }

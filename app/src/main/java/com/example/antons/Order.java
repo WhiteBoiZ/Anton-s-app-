@@ -4,9 +4,12 @@ public class Order {
     private String table;
     private String order;
 
-    public Order(String table, String order){
+    private String time;
+
+    public Order(String table, String order, String time){
         this.table = table;
         this.order = order;
+        this.time = time;
     }
 
     public String getTable(){
@@ -17,6 +20,7 @@ public class Order {
         return order;
     }
 
+    public String getTime() {return time;}
 
 
 }
