@@ -66,13 +66,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         holder.time.setText(order.getTime());
 
         holder.table.setOnClickListener(view -> {
-            onClickListener.tableOnClick(order.getTable());
+            if(onClickListener != null) {
+                onClickListener.tableOnClick(order.getTable(), orderList);
+            }
         });
     }
 
 
     public interface OnTableClickListener{
-        void tableOnClick(String table);
+        void tableOnClick(String table, List<Order> orderList);
     }
 
     public void setOnTableClickListener(OnTableClickListener onClickListener){
