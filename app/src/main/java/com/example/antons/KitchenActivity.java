@@ -29,12 +29,11 @@ public class KitchenActivity extends AppCompatActivity implements OrderAdapter.O
         selectedButton.setBackgroundResource(R.drawable.selected_button);
 
         RecyclerView orderView = findViewById(R.id.orderView);
-        RecyclerView tableOrderView = findViewById(R.id.tableOrders);
 
         List<Order> orderList = new ArrayList<Order>(Arrays.asList(
                 new Order("1","Fish", "14:10"),
                 new Order("2","Meat", "15:40"),
-                new Order("3", "Chicken Curry", "18:30"),
+                new Order("2", "Chicken Curry", "18:30"),
                 new Order("4", "Vegetarian Pizza", "20:15"),
                 new Order("5", "Beef Stir Fry", "16:00"),
                 new Order("6", "Shrimp Scampi", "19:20"),
@@ -50,9 +49,6 @@ public class KitchenActivity extends AppCompatActivity implements OrderAdapter.O
 
         List<Order> orderList2 = new ArrayList<>(orderList);
 
-        TableOrder tableOrderAdapter = new TableOrder(orderList2);
-        tableOrderView.setLayoutManager(new LinearLayoutManager(this));
-        tableOrderView.setAdapter(tableOrderAdapter);
 
 
 
@@ -73,7 +69,16 @@ public class KitchenActivity extends AppCompatActivity implements OrderAdapter.O
         for(int i = 0; i<orderList.size();++i){
             if(orderList.get(i).getTable().equals(table)){
                 System.out.println("Bord" + table);
+                tableClicked.add(orderList.get(i));
             }
+        }
+        if(!tableClicked.isEmpty()){
+            RecyclerView tableOrderView = findViewById(R.id.tableOrders);
+            TextView tableLabel = findViewById(R.id.tableText2);
+            tableLabel.setText("Bord: " + table);
+            TableOrder tableOrderAdapter = new TableOrder(tableClicked);
+            tableOrderView.setLayoutManager(new LinearLayoutManager(this));
+            tableOrderView.setAdapter(tableOrderAdapter);
         }
     }
 

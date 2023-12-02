@@ -16,13 +16,13 @@
 
 
     <ScrollView
-        android:layout_width="171dp"
-        android:layout_height="273dp"
+        android:layout_width="300dp"
+        android:layout_height="275dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/scroll_box"
         android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintEnd_toStartOf="@+id/column2"
+        app:layout_constraintHorizontal_bias="0.348"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/navbar">
 
@@ -33,34 +33,54 @@
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-        </androidx.recyclerview.widget.RecyclerView>
+            app:layout_constraintStart_toStartOf="parent"/>
 
 
     </ScrollView>
 
-    <ScrollView
-        android:layout_width="171dp"
-        android:layout_height="273dp"
+    <LinearLayout
+        android:id="@+id/column2"
+        android:layout_width="300dp"
+        android:layout_height="275dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/scroll_box"
-        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.933"
+        app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navbar">
+        app:layout_constraintTop_toBottomOf="@id/navbar"
+        android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/tableOrders"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="parent">
-        </androidx.recyclerview.widget.RecyclerView>
+        <TextView
+            android:id="@+id/tableText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_margin="10dp"
+            android:textSize="30sp"/>
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="300dp"
+            android:layout_height="275dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.91"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/navbar">
 
 
-    </ScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tableOrders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+
+        </ScrollView>
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/backButton"

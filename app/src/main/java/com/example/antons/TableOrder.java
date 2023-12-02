@@ -29,6 +29,7 @@ public class TableOrder extends RecyclerView.Adapter<TableOrder.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            order = (TextView) itemView.findViewById(R.id.orderText);
             time = (TextView) itemView.findViewById(R.id.timeText2);
         }
 
@@ -55,8 +56,7 @@ public class TableOrder extends RecyclerView.Adapter<TableOrder.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull TableOrder.ViewHolder holder, int position) {
         Order order = tableOrders.get(position);
-        //holder.table.setText("Ruta 2: " + order.getTable());
-        //holder.order.setText(order.getOrder());
+        holder.order.setText(order.getOrder());
         holder.time.setText(order.getTime());
     }
 
