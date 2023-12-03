@@ -87,4 +87,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     public int getItemCount() {
         return orderList.size();
     }
+
+    public void removeTableOrder(String table){
+        this.orderList.removeIf(item -> item.getTable().equals(table));
+    }
 }

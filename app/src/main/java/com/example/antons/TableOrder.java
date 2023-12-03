@@ -64,4 +64,14 @@ public class TableOrder extends RecyclerView.Adapter<TableOrder.ViewHolder> {
     public int getItemCount() {
         return tableOrders.size();
     }
+
+    public Order getItem(int position){
+        return this.tableOrders.get(position);
+    }
+
+    public void clear(){
+        this.tableOrders.clear();
+        this.notifyItemRangeRemoved(0,getItemCount());
+
+    }
 }

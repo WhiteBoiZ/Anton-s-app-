@@ -40,23 +40,23 @@
 
     <LinearLayout
         android:id="@+id/column2"
-        android:layout_width="300dp"
-        android:layout_height="275dp"
+        android:layout_width="303dp"
+        android:layout_height="396dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/scroll_box"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navbar"
-        android:orientation="vertical">
+        app:layout_constraintTop_toBottomOf="@id/navbar">
 
         <TextView
             android:id="@+id/tableText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
             android:layout_margin="10dp"
-            android:textSize="30sp"/>
+            android:text=""
+            android:textSize="30sp" />
 
         <ScrollView
             android:id="@+id/scrollView2"
@@ -79,6 +79,13 @@
 
 
         </ScrollView>
+
+        <Button
+            android:id="@+id/finishOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Done"
+            />
     </LinearLayout>
 
 

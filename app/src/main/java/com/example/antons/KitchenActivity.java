@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.tabs.TabLayout;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +21,13 @@ import java.time.LocalTime;
 
 
 public class KitchenActivity extends AppCompatActivity implements OrderAdapter.OnTableClickListener {
+
+    private OrderAdapter orderAdapter;
+    private TableOrder tableOrderAdapter;
+
+    private RecyclerView orderView;
+
+    private RecyclerView tableOrderView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +35,11 @@ public class KitchenActivity extends AppCompatActivity implements OrderAdapter.O
 
         Button backButton = findViewById(R.id.backButton);
         Button selectedButton = findViewById(R.id.kokButton);
+        Button finishOrderButton = findViewById(R.id.finishOrder);
         selectedButton.setBackgroundResource(R.drawable.selected_button);
 
-        RecyclerView orderView = findViewById(R.id.orderView);
 
+        orderView = findViewById(R.id.orderView);
         List<Order> orderList = new ArrayList<Order>(Arrays.asList(
                 new Order("1","Fish", "14:10"),
                 new Order("2","Meat", "15:40"),
@@ -42,14 +52,10 @@ public class KitchenActivity extends AppCompatActivity implements OrderAdapter.O
                 new Order("9", "Vegetable Curry", "21:05")));
 
 
-        OrderAdapter orderAdapter = new OrderAdapter(orderList);
+        orderAdapter = new OrderAdapter(orderList);
         orderAdapter.setOnTableClickListener(this);
         orderView.setLayoutManager(new LinearLayoutManager(this));
         orderView.setAdapter(orderAdapter);
-
-        List<Order> orderList2 = new ArrayList<>(orderList);
-
-
 
 
 
@@ -60,6 +66,27 @@ public class KitchenActivity extends AppCompatActivity implements OrderAdapter.O
                 finish();
             }
         });
+
+        finishOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(tableOrderAdapter.getItemCount() != 0){
+                    Order order = tableOrderAdapter.getItem(0);
+                    TextView orderText = findViewById(R.id.tableText2);
+                    orderText.setText("");
+                    tableOrderAdapter.clear();
+                    tableOrderView.setLayoutManager(null);
+                    tableOrderView.setAdapter(null);
+                    orderAdapter.removeTableOrder(order.getTable());
+                    orderView.setAdapter(orderAdapter);
+                    System.out.println("Clicked");
+
+                }
+            }
+        });
+
+
+
     }
 
 
@@ -73,14 +100,16 @@ public class KitchenActivity extends AppCompatActivity implements OrderAdapter.O
             }
         }
         if(!tableClicked.isEmpty()){
-            RecyclerView tableOrderView = findViewById(R.id.tableOrders);
+            tableOrderView = findViewById(R.id.tableOrders);
             TextView tableLabel = findViewById(R.id.tableText2);
             tableLabel.setText("Bord: " + table);
-            TableOrder tableOrderAdapter = new TableOrder(tableClicked);
+            tableOrderAdapter = new TableOrder(tableClicked);
             tableOrderView.setLayoutManager(new LinearLayoutManager(this));
             tableOrderView.setAdapter(tableOrderAdapter);
         }
     }
+
+
 
 
 }
