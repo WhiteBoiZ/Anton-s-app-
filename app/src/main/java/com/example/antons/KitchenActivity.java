@@ -25,9 +25,14 @@ public class KitchenActivity extends AppCompatActivity implements OrderAdapter.O
     private OrderAdapter orderAdapter;
     private TableOrder tableOrderAdapter;
 
+    private TableOrder starterOrderAdapter;
+    private TableOrder mainCourseOrderAdapter;
     private RecyclerView orderView;
-
     private RecyclerView tableOrderView;
+    private RecyclerView starterView;
+    private RecyclerView mainCourseView;
+    private RecyclerView dessertView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,15 +46,14 @@ public class KitchenActivity extends AppCompatActivity implements OrderAdapter.O
 
         orderView = findViewById(R.id.orderView);
         List<Order> orderList = new ArrayList<Order>(Arrays.asList(
-                new Order("1","Fish", "14:10"),
-                new Order("2","Meat", "15:40"),
-                new Order("2", "Chicken Curry", "18:30"),
-                new Order("4", "Vegetarian Pizza", "20:15"),
-                new Order("5", "Beef Stir Fry", "16:00"),
-                new Order("6", "Shrimp Scampi", "19:20"),
-                new Order("7", "Lasagna", "15:55"),
-                new Order("8", "Salmon Salad", "17:40"),
-                new Order("9", "Vegetable Curry", "21:05")));
+                new Order("1","Fisk", "14:10", "Förrätt"),
+                new Order("2","Kött", "15:40", "Varmrätt"),
+                new Order("2", "Kyckling och curry", "15:40", "Varmrätt"),
+                new Order("4", "Pizza", "20:15", "Varmrätt"),
+                new Order("5", "Spaghetti och köttfärssås", "16:00", "Varmrätt"),
+                new Order("6", "Lasagne", "19:20", "Varmrätt"),
+                new Order("8", "Lax", "17:40", "Varmrätt"),
+                new Order("9", "Vegetariskt", "21:05", "Varmrätt")));
 
 
         orderAdapter = new OrderAdapter(orderList);
@@ -93,20 +97,44 @@ public class KitchenActivity extends AppCompatActivity implements OrderAdapter.O
     @Override
     public void tableOnClick(String table, List<Order> orderList){
         List<Order> tableClicked = new ArrayList<Order>();
+        List<Order> starterList = new ArrayList<>();
+        List<Order> mainCourseList = new ArrayList<>();
         for(int i = 0; i<orderList.size();++i){
             if(orderList.get(i).getTable().equals(table)){
                 System.out.println("Bord" + table);
                 tableClicked.add(orderList.get(i));
+                switch(orderList.get(i).getType()){
+                    case "Varmrätt":
+                        mainCourseList.add(orderList.get(i));
+                        break;
+                    case "Förrätt":
+                        starterList.add(orderList.get(i));
+                        break;
+                }
             }
         }
+
         if(!tableClicked.isEmpty()){
-            tableOrderView = findViewById(R.id.tableOrders);
+            //tableOrderView = findViewById(R.id.tableOrders);
             TextView tableLabel = findViewById(R.id.tableText2);
             tableLabel.setText("Bord: " + table);
+            /*
             tableOrderAdapter = new TableOrder(tableClicked);
             tableOrderView.setLayoutManager(new LinearLayoutManager(this));
             tableOrderView.setAdapter(tableOrderAdapter);
+            */
+
+            starterView = findViewById(R.id.starterOrders);
+            starterOrderAdapter = new TableOrder(starterList);
+            starterView.setLayoutManager(new LinearLayoutManager(this));
+            starterView.setAdapter(starterOrderAdapter);
+            mainCourseView = findViewById(R.id.mainCourseOrders);
+            mainCourseOrderAdapter = new TableOrder(mainCourseList);
+            mainCourseView.setLayoutManager(new LinearLayoutManager(this));
+            mainCourseView.setAdapter(mainCourseOrderAdapter);
+
         }
+
     }
 
 

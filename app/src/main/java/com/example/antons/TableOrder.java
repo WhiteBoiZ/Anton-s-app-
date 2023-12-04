@@ -16,6 +16,8 @@ import java.util.List;
 
 public class TableOrder extends RecyclerView.Adapter<TableOrder.ViewHolder> {
     private List<Order> tableOrders;
+    private List<Order> starterList;
+    private List<Order> maincourseList;
 
     public TableOrder(List<Order> tableOrders){
         this.tableOrders = tableOrders;
@@ -26,9 +28,11 @@ public class TableOrder extends RecyclerView.Adapter<TableOrder.ViewHolder> {
         private TextView time;
         private TextView table;
 
+        private TextView type;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             order = (TextView) itemView.findViewById(R.id.orderText);
             time = (TextView) itemView.findViewById(R.id.timeText2);
         }
@@ -43,21 +47,27 @@ public class TableOrder extends RecyclerView.Adapter<TableOrder.ViewHolder> {
         }
 
         public TextView getTime() {return time;}
+
+        public TextView getType() {return type;}
     }
+
 
     @NonNull
     @Override
-    public TableOrder.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.table_orders, parent, false);
-        return new TableOrder.ViewHolder(view);
+
+        return new ViewHolder(view);
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TableOrder.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Order order = tableOrders.get(position);
-        holder.order.setText(order.getOrder());
         holder.time.setText(order.getTime());
+        holder.order.setText(order.getOrder());
+        //holder.type.setText(order.getType());
     }
 
     @Override

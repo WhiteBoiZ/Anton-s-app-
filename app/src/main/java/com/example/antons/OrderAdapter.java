@@ -23,7 +23,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
 
 
-
+    /*
+    * Custom ViewHolder for the recyclerview.
+    * Using the views in thex "order_list" layout.
+    * */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView order;
         private TextView table;
@@ -49,6 +52,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         public TextView getTime() {return time;}
     }
 
+    /*
+    * Function for creating new views in the list.
+    * */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -57,7 +63,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         return new ViewHolder(view);
     }
 
-
+    /*
+    * Sets the content to the textview.
+    * Creates an on-click listener.
+    * */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Order order = orderList.get(position);

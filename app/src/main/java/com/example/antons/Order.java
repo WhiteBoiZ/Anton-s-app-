@@ -6,10 +6,13 @@ public class Order {
 
     private String time;
 
-    public Order(String table, String order, String time){
+    private String type;
+
+    public Order(String table, String order, String time, String type){
         this.table = table;
         this.order = order;
         this.time = time;
+        this.type = type;
     }
 
     public String getTable(){
@@ -21,6 +24,8 @@ public class Order {
     }
 
     public String getTime() {return time;}
+
+    public String getType() {return type;}
 
 
 }

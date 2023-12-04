@@ -40,8 +40,8 @@
 
     <LinearLayout
         android:id="@+id/column2"
-        android:layout_width="303dp"
-        android:layout_height="396dp"
+        android:layout_width="305dp"
+        android:layout_height="533dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/scroll_box"
         android:orientation="vertical"
@@ -58,19 +58,27 @@
             android:text=""
             android:textSize="30sp" />
 
+
+        <TextView
+            android:id="@+id/starterText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Förrätter"
+            android:textSize="30sp" />
+
         <ScrollView
             android:id="@+id/scrollView2"
             android:layout_width="300dp"
-            android:layout_height="275dp"
+            android:layout_height="wrap_content"
             android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.91"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/navbar">
+            app:layout_constraintStart_toStartOf="parent">
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/tableOrders"
+                android:id="@+id/starterOrders"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -80,12 +88,41 @@
 
         </ScrollView>
 
+        <TextView
+            android:id="@+id/mainCourseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Varmrätter"
+            android:textSize="30sp" />
+
+        <ScrollView
+            android:id="@+id/scrollView3"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.91"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mainCourseOrders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+
+        </ScrollView>
+
+
         <Button
             android:id="@+id/finishOrder"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="Done"
-            />
+            android:text="Done" />
     </LinearLayout>
 
 
@@ -93,8 +130,8 @@
         android:id="@+id/backButton"
         android:layout_width="185dp"
         android:layout_height="108dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="800dp"
+        android:layout_marginBottom="44dp"
         android:text="Tillbaka"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
