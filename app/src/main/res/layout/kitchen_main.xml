@@ -17,7 +17,7 @@
 
     <ScrollView
         android:layout_width="300dp"
-        android:layout_height="275dp"
+        android:layout_height="500dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/scroll_box"
         android:padding="8dp"
@@ -41,7 +41,7 @@
     <LinearLayout
         android:id="@+id/column2"
         android:layout_width="305dp"
-        android:layout_height="533dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/scroll_box"
         android:orientation="vertical"
@@ -70,7 +70,7 @@
         <ScrollView
             android:id="@+id/scrollView2"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="120dp"
             android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.91"
@@ -88,6 +88,12 @@
 
         </ScrollView>
 
+        <Button
+            android:id="@+id/finishStarters"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Klar" />
+
         <TextView
             android:id="@+id/mainCourseText"
             android:layout_width="wrap_content"
@@ -99,7 +105,7 @@
         <ScrollView
             android:id="@+id/scrollView3"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="120dp"
             android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.91"
@@ -117,12 +123,47 @@
 
         </ScrollView>
 
-
         <Button
-            android:id="@+id/finishOrder"
+            android:id="@+id/finishMainCourse"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="Done" />
+            android:text="Klar" />
+
+        <TextView
+            android:id="@+id/dessertText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Dessert"
+            android:textSize="30sp" />
+
+        <ScrollView
+            android:id="@+id/scrollView4"
+            android:layout_width="300dp"
+            android:layout_height="120dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.91"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dessertOrders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/finishDesserts"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="Klar" />
+
     </LinearLayout>
 
 
@@ -130,7 +171,7 @@
         android:id="@+id/backButton"
         android:layout_width="185dp"
         android:layout_height="108dp"
-        android:layout_marginEnd="800dp"
+        android:layout_marginEnd="536dp"
         android:layout_marginBottom="44dp"
         android:text="Tillbaka"
         app:layout_constraintBottom_toBottomOf="parent"
