@@ -10,9 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 public class BordFragment extends Fragment {
+
+
+    public static BordFragment newInstance(String table){
+        BordFragment bordFragment = new BordFragment();
+        Bundle args = new Bundle();
+        args.putString("tableID",table);
+        bordFragment.setArguments(args);
+        return bordFragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,6 +37,8 @@ public class BordFragment extends Fragment {
 
         // Använda getView().findViewById inom ett fragment
         Button addButton = view.findViewById(R.id.addbutton);
+        TextView fragmentID = view.findViewById(R.id.fragmentID);
+        fragmentID.setText(this.getArguments().getString("tableID"));
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

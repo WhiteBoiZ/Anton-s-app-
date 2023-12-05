@@ -9,6 +9,16 @@
     android:layout_height="match_parent"
     tools:context=".BordFragment">
 
+
+    <TextView
+        android:id="@+id/fragmentID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hej"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="194dp"
+        tools:layout_editor_absoluteY="16dp" />
+
     <Button
         android:id="@+id/addbutton"
         android:layout_width="303dp"
