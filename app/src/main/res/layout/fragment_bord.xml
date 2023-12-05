@@ -13,8 +13,7 @@
         android:id="@+id/addbutton"
         android:layout_width="303dp"
         android:layout_height="100dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
+
         android:text="Lägg till"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
