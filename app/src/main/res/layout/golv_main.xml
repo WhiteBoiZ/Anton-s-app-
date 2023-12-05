@@ -10,30 +10,27 @@
         android:id="@+id/bord_buttons"
         layout="@layout/bord_buttons_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="51dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <LinearLayout
-        android:layout_width="1021dp"
-        android:layout_height="719dp"
-        android:layout_marginTop="51dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bord_buttons">
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="com.example.antons.BordFragment"
+        android:layout_margin="65dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainerView"
-            android:name="com.example.antons.BordFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout="@layout/fragment_bord"
-            tools:layout_editor_absoluteX="53dp"
-            tools:layout_editor_absoluteY="504dp" />
-    </LinearLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/bord_buttons"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bord_buttons"
+        app:layout_constraintVertical_bias="0.417"
+        tools:layout="@layout/fragment_bord" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
