@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BordFragment">
+
+
+    <LinearLayout
+        android:id="@+id/addPreOrder"
+        android:layout_width="427dp"
+        android:layout_height="674dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/scroll_box"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.883"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Preview" />
+
+        <TextView
+            android:id="@+id/preStarterText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Förrätter"
+            android:textSize="30sp" />
+
+        <ScrollView
+            android:id="@+id/scrollViewStarter"
+            android:layout_width="372dp"
+            android:layout_height="86dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.91"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/preStarterOrders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+
+        </ScrollView>
+
+
+        <TextView
+            android:id="@+id/preMainCourseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Varmrätter"
+            android:textSize="30sp" />
+
+
+        <ScrollView
+            android:id="@+id/mainScrollView3"
+            android:layout_width="372dp"
+            android:layout_height="84dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.91"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/preMainCourseOrders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/preDessertText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Dessert"
+            android:textSize="30sp" />
+
+        <ScrollView
+            android:id="@+id/dessertScrollView4"
+            android:layout_width="364dp"
+            android:layout_height="96dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.91"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/preDessertOrders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/preDrinkText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Dryck"
+            android:textSize="30sp" />
+
+        <ScrollView
+            android:id="@+id/DrinkscrollViewDryck"
+            android:layout_width="364dp"
+            android:layout_height="115dp"
+            android:padding="8dp">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/preDryckOrders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+
+        </ScrollView>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/column2"
+        android:layout_width="459dp"
+        android:layout_height="754dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/scroll_box"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <TextView
+            android:id="@+id/starterText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Förrätter"
+            android:textSize="30sp" />
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="372dp"
+            android:layout_height="86dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.91"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/starterOrders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+
+        </ScrollView>
+
+
+        <TextView
+            android:id="@+id/mainCourseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Varmrätter"
+            android:textSize="30sp" />
+
+
+        <ScrollView
+            android:id="@+id/scrollView3"
+            android:layout_width="372dp"
+            android:layout_height="84dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.91"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mainCourseOrders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/dessertText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Dessert"
+            android:textSize="30sp" />
+
+        <ScrollView
+            android:id="@+id/scrollView4"
+            android:layout_width="364dp"
+            android:layout_height="96dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.91"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dessertOrders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/drinkText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Dryck"
+            android:textSize="30sp" />
+
+        <ScrollView
+            android:id="@+id/addScrollViewDryck"
+            android:layout_width="360dp"
+            android:layout_height="143dp"
+            android:padding="8dp">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/addDryckOrders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+
+        </ScrollView>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="483dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="4dp"
+        android:text="Lägg till"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
