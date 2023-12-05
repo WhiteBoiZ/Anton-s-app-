@@ -50,6 +50,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         }
 
         public TextView getTime() {return time;}
+
+
     }
 
     /*
