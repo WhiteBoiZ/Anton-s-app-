@@ -9,26 +9,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.tabs.TabLayout;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.time.LocalTime;
 
 
+public class KitchenActivity extends AppCompatActivity implements TableOrderAdapter.OnTableClickListener {
 
-public class KitchenActivity extends AppCompatActivity implements OrderAdapter.OnTableClickListener {
-
+    private TableOrderAdapter tableOrderAdapter;
     private OrderAdapter orderAdapter;
-    private TableOrder tableOrderAdapter;
 
-    private TableOrder starterOrderAdapter;
-    private TableOrder mainCourseOrderAdapter;
+    private OrderAdapter starterOrderAdapter;
+    private OrderAdapter mainCourseOrderAdapter;
 
-    private TableOrder dessertOrderAdapter;
+    private OrderAdapter dessertOrderAdapter;
     private RecyclerView orderView;
     private RecyclerView tableOrderView;
     private RecyclerView starterView;
@@ -49,28 +43,36 @@ public class KitchenActivity extends AppCompatActivity implements OrderAdapter.O
 
 
         orderView = findViewById(R.id.orderView);
-        List<Order> orderList = new ArrayList<Order>(Arrays.asList(
+        List<Order> orderList1 = new ArrayList<Order>(Arrays.asList(
                 new Order("1","Fisk", "14:10", "Förrätt"),
                 new Order("1","Kött", "15:40", "Varmrätt"),
-                new Order("2", "Kyckling och curry", "15:40", "Varmrätt"),
-                new Order("2", "Kyckling och curry", "15:40", "Varmrätt"),
-                new Order("2", "Kyckling och curry", "15:40", "Varmrätt"),
-                new Order("2", "Kyckling och curry", "15:40", "Varmrätt"),
-                new Order("2", "Kyckling och curry", "15:40", "Varmrätt"),
-                new Order("2", "Kyckling och curry", "15:40", "Varmrätt"),
-                new Order("2", "Kyckling och curry", "15:40", "Varmrätt"),
+                new Order("1", "Kyckling och curry", "15:40", "Varmrätt"),
+                new Order("1", "Kyckling och curry", "15:40", "Varmrätt"),
+                new Order("1", "Kyckling och curry", "15:40", "Varmrätt"),
+                new Order("1", "Kyckling och curry", "15:40", "Varmrätt"),
+                new Order("1", "Kyckling och curry", "15:40", "Varmrätt"),
+                new Order("1", "Kyckling och curry", "15:40", "Varmrätt"),
+                new Order("1", "Kyckling och curry", "15:40", "Varmrätt")));
+
+        List<Order> orderList2 = new ArrayList<Order>(Arrays.asList(
                 new Order("2", "Kyckling och curry", "15:40", "Varmrätt"),
                 new Order("2", "Pizza", "20:15", "Förrätt"),
-                new Order("3", "Spaghetti och köttfärssås", "16:00", "Varmrätt"),
+                new Order("2", "Spaghetti och köttfärssås", "16:00", "Varmrätt"),
                 new Order("2", "Glass", "19:20", "Dessert"),
-                new Order("3", "Lax", "17:40", "Varmrätt"),
-                new Order("1", "Vegetariskt", "15:40", "Varmrätt")));
+                new Order("2", "Lax", "17:40", "Varmrätt"),
+                new Order("2", "Vegetariskt", "15:40", "Varmrätt"
+        )));
+
+        List<TableOrder> tableOrderList = new ArrayList<TableOrder>(Arrays.asList(
+                new TableOrder(orderList1,"1","14:30"),
+                new TableOrder(orderList2,"2","15:30")
+        ));
 
 
-        orderAdapter = new OrderAdapter(orderList);
-        orderAdapter.setOnTableClickListener(this);
+        tableOrderAdapter = new TableOrderAdapter(tableOrderList);
+        tableOrderAdapter.setOnTableClickListener(this);
         orderView.setLayoutManager(new LinearLayoutManager(this));
-        orderView.setAdapter(orderAdapter);
+        orderView.setAdapter(tableOrderAdapter);
 
 
 
@@ -82,6 +84,7 @@ public class KitchenActivity extends AppCompatActivity implements OrderAdapter.O
             }
         });
 
+
         finishStartersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,9 +93,14 @@ public class KitchenActivity extends AppCompatActivity implements OrderAdapter.O
                     starterOrderAdapter.clear();
                     starterView.setLayoutManager(null);
                     starterView.setAdapter(null);
-                    orderAdapter.removeTableOrder(order.getTable(), order.getType());
-                    orderView.setAdapter(orderAdapter);
+                    tableOrderAdapter.removeOrder(order.getTable(), order.getType());
                     System.out.println("Clicked");
+                    if(!tableOrderAdapter.isEmpty()){
+                        orderView.setAdapter(tableOrderAdapter);
+                    }else{
+                        orderView.setLayoutManager(null);
+                        orderView.setAdapter(null);
+                    }
 
                 }
             }
@@ -106,9 +114,15 @@ public class KitchenActivity extends AppCompatActivity implements OrderAdapter.O
                     mainCourseOrderAdapter.clear();
                     mainCourseView.setLayoutManager(null);
                     mainCourseView.setAdapter(null);
-                    orderAdapter.removeTableOrder(order.getTable(), order.getType());
-                    orderView.setAdapter(orderAdapter);
+                    tableOrderAdapter.removeOrder(order.getTable(), order.getType());
+                    orderView.setAdapter(tableOrderAdapter);
                     System.out.println("Clicked");
+                    if(!tableOrderAdapter.isEmpty()){
+                        orderView.setAdapter(tableOrderAdapter);
+                    }else{
+                        orderView.setLayoutManager(null);
+                        orderView.setAdapter(null);
+                    }
 
                 }
             }
@@ -123,8 +137,13 @@ public class KitchenActivity extends AppCompatActivity implements OrderAdapter.O
                     dessertOrderAdapter.clear();
                     dessertView.setLayoutManager(null);
                     dessertView.setAdapter(null);
-                    orderAdapter.removeTableOrder(order.getTable(), order.getType());
-                    orderView.setAdapter(orderAdapter);
+                    tableOrderAdapter.removeOrder(order.getTable(), order.getType());
+                    if(!tableOrderAdapter.isEmpty()){
+                        orderView.setAdapter(tableOrderAdapter);
+                    }else{
+                        orderView.setLayoutManager(null);
+                        orderView.setAdapter(null);
+                    }
                     System.out.println("Clicked");
 
                 }
@@ -166,15 +185,15 @@ public class KitchenActivity extends AppCompatActivity implements OrderAdapter.O
             tableLabel.setText("Bord: " + table);
 
             starterView = findViewById(R.id.starterOrders);
-            starterOrderAdapter = new TableOrder(starterList);
+            starterOrderAdapter = new OrderAdapter(starterList);
             starterView.setLayoutManager(new LinearLayoutManager(this));
             starterView.setAdapter(starterOrderAdapter);
             mainCourseView = findViewById(R.id.mainCourseOrders);
-            mainCourseOrderAdapter = new TableOrder(mainCourseList);
+            mainCourseOrderAdapter = new OrderAdapter(mainCourseList);
             mainCourseView.setLayoutManager(new LinearLayoutManager(this));
             mainCourseView.setAdapter(mainCourseOrderAdapter);
             dessertView = findViewById(R.id.dessertOrders);
-            dessertOrderAdapter = new TableOrder(dessertList);
+            dessertOrderAdapter = new OrderAdapter(dessertList);
             dessertView.setLayoutManager(new LinearLayoutManager(this));
             dessertView.setAdapter(dessertOrderAdapter);
 

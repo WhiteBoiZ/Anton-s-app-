@@ -1,6 +1,5 @@
 package com.example.antons;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,34 +11,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
-    private List<Order> orderList;
+    private List<Order> tableOrders;
 
 
-    private OnTableClickListener onClickListener;
-
-    public OrderAdapter(List<Order> orderList){
-        this.orderList = orderList;
+    public OrderAdapter(List<Order> tableOrders){
+        this.tableOrders = tableOrders;
     }
 
-
-
-    /*
-    * Custom ViewHolder for the recyclerview.
-    * Using the views in thex "order_list" layout.
-    * */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         private TextView order;
+        private TextView time;
         private TextView table;
 
-        private TextView time;
+        private TextView type;
 
-
-
-        public ViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            time = (TextView) itemView.findViewById(R.id.timeText);
-            table = (TextView) itemView.findViewById(R.id.tableText);
+
+            order = (TextView) itemView.findViewById(R.id.orderText);
+            time = (TextView) itemView.findViewById(R.id.timeText2);
         }
+
 
         public TextView getOrder() {
             return order;
@@ -50,54 +42,43 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         }
 
         public TextView getTime() {return time;}
+
+        public TextView getType() {return type;}
     }
 
-    /*
-    * Function for creating new views in the list.
-    * */
+
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.order_list, parent, false);
+                .inflate(R.layout.table_orders, parent, false);
+
         return new ViewHolder(view);
+
     }
 
-    /*
-    * Sets the content to the textview.
-    * Creates an on-click listener.
-    * */
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Order order = orderList.get(position);
-        holder.table.setText("Bord: " + order.getTable());
-        //holder.order.setText(order.getOrder());
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Order order = tableOrders.get(position);
         holder.time.setText(order.getTime());
-
-        holder.table.setOnClickListener(view -> {
-            if(onClickListener != null) {
-                onClickListener.tableOnClick(order.getTable(), orderList);
-            }
-        });
+        holder.order.setText(order.getOrder());
+        //holder.type.setText(order.getType());
     }
-
-
-    public interface OnTableClickListener{
-        void tableOnClick(String table, List<Order> orderList);
-    }
-
-    public void setOnTableClickListener(OnTableClickListener onClickListener){
-        this.onClickListener = onClickListener;
-    }
-
-
 
     @Override
     public int getItemCount() {
-        return orderList.size();
+        return tableOrders.size();
     }
 
-    public void removeTableOrder(String table, String type){
-        this.orderList.removeIf(item -> (item.getTable().equals(table) && item.getType().equals(type)));
+    public Order getItem(int position){
+        return this.tableOrders.get(position);
     }
+
+    public void clear(){
+        this.tableOrders.clear();
+        this.notifyItemRangeRemoved(0,getItemCount());
+
+    }
+
+
 }
