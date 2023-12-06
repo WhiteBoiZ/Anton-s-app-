@@ -17,6 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FetchMenuTask extends AsyncTask<Void, Void, List<Food>> {
+    private FoodAdapter FoodAdapter;
+
+    public FetchMenuTask() {
+        this.FoodAdapter = FoodAdapter;
+    }
 
     @Override
     protected List<Food> doInBackground(Void... voids) {
