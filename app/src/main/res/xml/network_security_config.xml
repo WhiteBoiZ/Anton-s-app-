@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <!-- Add the IP address or domain of your API -->
+        <domain includeSubdomains="true">10.82.226.253</domain>
+    </domain-config>
+</network-security-config>
