@@ -22,16 +22,36 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         this.tableOrders = tableOrders;
     }
 
+
+
     /*
      * Custom ViewHolder for the recyclerview.
      * Using the views in the "table_orders" layout.
      * */
     public static class ViewHolder extends RecyclerView.ViewHolder{
+
+
         private TextView order;
         private TextView time;
         private TextView table;
 
         private TextView type;
+        public void setOrder(TextView order) {
+            this.order = order;
+        }
+
+        public void setTime(TextView time) {
+            this.time = time;
+        }
+
+        public void setTable(TextView table) {
+            this.table = table;
+        }
+
+        public void setType(TextView type) {
+            this.type = type;
+        }
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -93,7 +113,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     public void clear(){
         this.tableOrders.clear();
         this.notifyItemRangeRemoved(0,getItemCount());
+    }
 
+    public void add(Order order){
+        tableOrders.add(order);
     }
 
 
