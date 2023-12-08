@@ -10,20 +10,10 @@
     tools:context=".BordFragment">
 
 
-    <TextView
-        android:id="@+id/fragmentID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hej"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="194dp"
-        tools:layout_editor_absoluteY="16dp" />
-
     <Button
         android:id="@+id/addbutton"
         android:layout_width="303dp"
         android:layout_height="100dp"
-
         android:text="Lägg till"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -40,14 +30,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <TextView
-            android:id="@+id/starterText"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Förrätter"
-            android:textSize="30sp" />
+            android:id="@+id/starterContainer">
+            <TextView
+                android:id="@+id/starterText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Förrätter"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/addStarter"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:text="Välj förrätter" />
+        </LinearLayout>
+
 
         <ScrollView
             android:id="@+id/scrollView2"
@@ -71,13 +72,28 @@
         </ScrollView>
 
 
-        <TextView
-            android:id="@+id/mainCourseText"
-            android:layout_width="wrap_content"
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Varmrätter"
-            android:textSize="30sp" />
+            android:id="@+id/mainCourseContainer">
+
+            <TextView
+                android:id="@+id/mainCourseText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Varmrätter"
+                android:textSize="30sp" />
+
+
+            <Button
+                android:id="@+id/addMainCourse"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:text="Välj varmrätt" />
+        </LinearLayout>
 
 
         <ScrollView
@@ -101,13 +117,27 @@
 
         </ScrollView>
 
-        <TextView
-            android:id="@+id/dessertText"
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Dessert"
-            android:textSize="30sp" />
+            android:id="@+id/dessertContainer">
+
+            <TextView
+                android:id="@+id/dessertText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Dessert"
+                android:textSize="30sp" />
+            <Button
+                android:id="@+id/addDessert"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:text="Välj efterrätt" />
+        </LinearLayout>
+
+
 
         <ScrollView
             android:id="@+id/scrollView4"

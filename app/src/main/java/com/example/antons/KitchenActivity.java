@@ -17,14 +17,12 @@ import java.util.List;
 public class KitchenActivity extends AppCompatActivity implements TableOrderAdapter.OnTableClickListener {
 
     private TableOrderAdapter tableOrderAdapter;
-    private OrderAdapter orderAdapter;
 
     private OrderAdapter starterOrderAdapter;
     private OrderAdapter mainCourseOrderAdapter;
 
     private OrderAdapter dessertOrderAdapter;
     private RecyclerView orderView;
-    private RecyclerView tableOrderView;
     private RecyclerView starterView;
     private RecyclerView mainCourseView;
     private RecyclerView dessertView;
@@ -83,6 +81,7 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
                 finish();
             }
         });
+
 
 
         finishStartersButton.setOnClickListener(new View.OnClickListener() {
@@ -154,17 +153,20 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
 
     }
 
-
+    /*
+    * Implementation of the "On click method" for the TableOrderAdapter.
+    * Divides the orders that the table has ordered in to different recyclerview's depending on its type.
+    * Connects the adapters to each view.
+    * */
     @Override
     public void tableOnClick(String table, List<Order> orderList){
-        List<Order> tableClicked = new ArrayList<Order>();
+        //List<Order> tableClicked = new ArrayList<Order>();
         List<Order> starterList = new ArrayList<>();
         List<Order> mainCourseList = new ArrayList<>();
         List<Order> dessertList = new ArrayList<>();
         for(int i = 0; i<orderList.size();++i){
             if(orderList.get(i).getTable().equals(table)){
                 System.out.println("Bord" + table);
-                tableClicked.add(orderList.get(i));
                 switch(orderList.get(i).getType()){
                     case "Varmrätt":
                         mainCourseList.add(orderList.get(i));
@@ -179,7 +181,7 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
             }
         }
 
-        if(!tableClicked.isEmpty()){
+        if(!orderList.isEmpty()){
             //tableOrderView = findViewById(R.id.tableOrders);
             TextView tableLabel = findViewById(R.id.tableText2);
             tableLabel.setText("Bord: " + table);
