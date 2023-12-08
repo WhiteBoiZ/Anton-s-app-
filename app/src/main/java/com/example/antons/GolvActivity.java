@@ -99,13 +99,5 @@ public class GolvActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-    /*
-    public int getStackCount() {
-        BordFragment fragment = (BordFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
-        if (fragment != null) {
-            return fragment.getChildFragmentManager().getBackStackEntryCount();
-        }
-        return 0;
-    }*/
 
 }

@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+/*
+* Class for creating a dynamic list using a recyclerview to display data from the class "TableOrder".
+* */
 public class TableOrderAdapter extends RecyclerView.Adapter<TableOrderAdapter.ViewHolder> {
     private List<TableOrder> orderList;
 
@@ -24,7 +27,7 @@ public class TableOrderAdapter extends RecyclerView.Adapter<TableOrderAdapter.Vi
 
     /*
     * Custom ViewHolder for the recyclerview.
-    * Using the views in thex "order_list" layout.
+    * Using the views in the "order_list" layout.
     * */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView order;
@@ -52,7 +55,7 @@ public class TableOrderAdapter extends RecyclerView.Adapter<TableOrderAdapter.Vi
     }
 
     /*
-    * Function for creating new views in the list.
+    * Method for creating new views in the list.
     * */
     @NonNull
     @Override
@@ -81,6 +84,9 @@ public class TableOrderAdapter extends RecyclerView.Adapter<TableOrderAdapter.Vi
     }
 
 
+    /*
+    * Method for the function that handles the click on an item in the recyclerview.
+    * */
     public interface OnTableClickListener{
         void tableOnClick(String table, List<Order> orderList);
     }
@@ -90,13 +96,15 @@ public class TableOrderAdapter extends RecyclerView.Adapter<TableOrderAdapter.Vi
     }
 
 
-
     @Override
     public int getItemCount() {
         return orderList.size();
     }
 
 
+    /*
+    * Removes orders with a specific type from a table.
+    * */
     public void removeOrder(String table, String type){
         for(TableOrder tableOrder: orderList){
             tableOrder.getOrderList().removeIf(item -> (item.getTable().equals(table) && item.getType().equals(type)));
@@ -108,7 +116,6 @@ public class TableOrderAdapter extends RecyclerView.Adapter<TableOrderAdapter.Vi
     public Boolean isEmpty(){
         return orderList.isEmpty();
     }
-
 
 
 }
