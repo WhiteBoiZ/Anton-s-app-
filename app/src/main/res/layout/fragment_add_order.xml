@@ -106,33 +106,19 @@
         app:layout_constraintVertical_bias="0.041">
 
 
-
-
         <TextView
-            android:id="@+id/preStarterText"
+            android:id="@+id/preOrderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Förrätter"
-            android:textSize="30sp" />
-
-
-
-
-
-        <TextView
-            android:id="@+id/preMainCourseText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Varmrätter"
+            android:text=""
             android:textSize="30sp" />
 
 
         <ScrollView
             android:id="@+id/mainScrollView3"
             android:layout_width="372dp"
-            android:layout_height="84dp"
+            android:layout_height="400dp"
             android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.91"
@@ -140,64 +126,9 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/preMainCourseOrders"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="parent" />
-
-
-        </ScrollView>
-
-        <TextView
-            android:id="@+id/preDessertText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Dessert"
-            android:textSize="30sp" />
-
-        <ScrollView
-            android:id="@+id/dessertScrollView4"
-            android:layout_width="364dp"
-            android:layout_height="96dp"
-            android:padding="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.91"
-            app:layout_constraintStart_toStartOf="parent">
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/preDessertOrders"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="parent" />
-
-
-        </ScrollView>
-
-        <TextView
-            android:id="@+id/preDrinkText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Dryck"
-            android:textSize="30sp" />
-
-        <ScrollView
-            android:id="@+id/DrinkscrollViewDryck"
-            android:layout_width="364dp"
-            android:layout_height="115dp"
-            android:padding="8dp">
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/preDryckOrders"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/selectedOrders"
+                android:layout_width="300dp"
+                android:layout_height="500dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="parent" />
