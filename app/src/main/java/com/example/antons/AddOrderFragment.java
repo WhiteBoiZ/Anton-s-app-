@@ -21,11 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AddOrderFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class AddOrderFragment extends Fragment {
 
 
@@ -61,11 +57,11 @@ public class AddOrderFragment extends Fragment {
 
 
         String[] starters = {"item1", "item2", "item3","item1", "item2", "item3","item1", "item2", "item3","item1", "item2", "item3"};
-        ListAdapter listAdapter = new ListAdapter(requireContext(),R.layout.simple_spinner_item, Arrays.asList(starters));
-        ListPopupWindow listPopupWindow = new ListPopupWindow(requireContext());
-        listPopupWindow.setAnchorView(view.findViewById(R.id.starterSelector));
-        listPopupWindow.setAdapter(listAdapter);
-        listPopupWindow.setHeight(200);
+        ListAdapter starterListAdapter = new ListAdapter(requireContext(),R.layout.simple_spinner_item, Arrays.asList(starters));
+        ListPopupWindow starterListPopupWindow = new ListPopupWindow(requireContext());
+        starterListPopupWindow.setAnchorView(view.findViewById(R.id.starterSelector));
+        starterListPopupWindow.setAdapter(starterListAdapter);
+        starterListPopupWindow.setHeight(200);
 
         List<Order> orderList = new ArrayList<Order>(Arrays.asList(new Order("1","Fisk","15:50", "Varmrätt"),
                 new Order("1","Kött","15:50", "Varmrätt")));
@@ -102,13 +98,13 @@ public class AddOrderFragment extends Fragment {
         textView.setText(this.type);
 
 
-        listPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        starterListPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = listAdapter.getItem(position);
+                String selectedItem = starterListAdapter.getItem(position);
                 System.out.println(selectedItem);
                 orderAdapter.add(new Order(table,selectedItem,"Tid","Typ"));
-                listPopupWindow.dismiss();
+                starterListPopupWindow.dismiss();
             }
         });
 
@@ -116,7 +112,7 @@ public class AddOrderFragment extends Fragment {
         view.findViewById(R.id.starterSelector).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listPopupWindow.show();
+                starterListPopupWindow.show();
             }
         });
 

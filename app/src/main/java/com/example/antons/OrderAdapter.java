@@ -116,7 +116,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     }
 
     public void add(Order order){
-        tableOrders.add(order);
+        this.tableOrders.add(order);
+        this.notifyItemInserted(tableOrders.size()-1);
     }
 
 
