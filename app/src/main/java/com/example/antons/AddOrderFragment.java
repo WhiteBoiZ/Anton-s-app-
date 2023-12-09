@@ -28,26 +28,33 @@ import java.util.List;
 public class AddOrderFragment extends Fragment {
 
 
+
     private String type;
 
     private String table;
+
+
+
+    private OnPassOrder onPassOrder;
+
+    private OrderAdapter orderAdapter;
+
 
     public AddOrderFragment(String type, String table) {
         this.type = type;
         this.table = table;
     }
 
-    public static AddOrderFragment newInstance(String type, String table) {
-        AddOrderFragment fragment = new AddOrderFragment(type,table);
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+    public void setOnPassOrder(OnPassOrder onPassOrder) {
+        this.onPassOrder = onPassOrder;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,7 +92,7 @@ public class AddOrderFragment extends Fragment {
         List<Order> orderList = new ArrayList<Order>(Arrays.asList(new Order("1","Fisk","15:50", "Varmrätt"),
                 new Order("1","Kött","15:50", "Varmrätt")));
 
-        OrderAdapter orderAdapter = new OrderAdapter(orderList){
+        this.orderAdapter = new OrderAdapter(orderList){
 
             @NonNull
             @Override
@@ -179,9 +186,22 @@ public class AddOrderFragment extends Fragment {
         return view;
     }
 
+    public interface OnPassOrder {
+        void onDataPassed(List<Order> list);
+    }
+
+    private void passData(){
+        if(onPassOrder != null){
+            onPassOrder.onDataPassed(orderAdapter.getTableOrders());
+        }
+    }
+
+
 
     public void addToOrder(View view){
-        //Pass the selected data in the orderList.
+        //Pass the selected data in the orderList
+        passData();
+        System.out.println("Going back");
         this.getParentFragmentManager().popBackStack();
     }
 

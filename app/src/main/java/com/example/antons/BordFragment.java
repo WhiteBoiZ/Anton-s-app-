@@ -1,5 +1,6 @@
 package com.example.antons;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,8 +13,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.List;
 
-public class BordFragment extends Fragment {
+
+public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrder{
 
 
     public static BordFragment newInstance(String table){
@@ -23,6 +26,7 @@ public class BordFragment extends Fragment {
         bordFragment.setArguments(args);
         return bordFragment;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,6 +71,7 @@ public class BordFragment extends Fragment {
         if(view.getId() == R.id.addStarter){
             System.out.println("Förrätt");
             AddOrderFragment addOrderFragment = new AddOrderFragment("Förrätt", this.getArguments().getString("tableID"));
+            addOrderFragment.setOnPassOrder(this);
             getParentFragmentManager().beginTransaction()
                     .replace(R.id.fragmentContainerView, addOrderFragment)
                     .addToBackStack(null)
@@ -88,5 +93,11 @@ public class BordFragment extends Fragment {
                     .addToBackStack(null)
                     .commit();
         }
+    }
+
+    @Override
+    public void onDataPassed(List<Order> list) {
+        System.out.println("In the fragment now...");
+        System.out.println("In fragment" + list.get(0).getOrder() + list.get(2).getOrder());
     }
 }
