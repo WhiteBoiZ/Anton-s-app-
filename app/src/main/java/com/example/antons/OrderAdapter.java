@@ -15,6 +15,7 @@ import java.util.List;
  * Class for creating a dynamic list using a recyclerview to display data from the class "Order".
  * */
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
+
     private List<Order> tableOrders;
 
 
@@ -118,6 +119,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     public void add(Order order){
         this.tableOrders.add(order);
         this.notifyItemInserted(tableOrders.size()-1);
+    }
+
+    public List<Order> getTableOrders() {
+        return tableOrders;
     }
 
 
