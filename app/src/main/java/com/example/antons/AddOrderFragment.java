@@ -45,6 +45,8 @@ public class AddOrderFragment extends Fragment {
         this.table = table;
     }
 
+
+    //Sets an instance to the interface.
     public void setOnPassOrder(OnPassOrder onPassOrder) {
         this.onPassOrder = onPassOrder;
     }
@@ -89,8 +91,8 @@ public class AddOrderFragment extends Fragment {
 
 
 
-        List<Order> orderList = new ArrayList<Order>(Arrays.asList(new Order("1","Fisk","15:50", "Varmrätt"),
-                new Order("1","Kött","15:50", "Varmrätt")));
+        List<Order> orderList = new ArrayList<Order>(Arrays.asList(new Order("1","Fisk","15:50", type),
+                new Order("1","Kött","15:50", type)));
 
         this.orderAdapter = new OrderAdapter(orderList){
 
@@ -129,7 +131,7 @@ public class AddOrderFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = starterListAdapter.getItem(position);
                 System.out.println(selectedItem);
-                orderAdapter.add(new Order(table,selectedItem,"Tid","Förrätt"));
+                orderAdapter.add(new Order(table,selectedItem,"Tid",type));
                 starterListPopupWindow.dismiss();
             }
         });
@@ -147,7 +149,7 @@ public class AddOrderFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String selectedItem = mainCourseAdapter.getItem(i);
-                orderAdapter.add(new Order(table,selectedItem,"Tid","Varmrätt"));
+                orderAdapter.add(new Order(table,selectedItem,"Tid",type));
                 maincourseListPopupWindow.dismiss();
             }
         });
@@ -164,7 +166,7 @@ public class AddOrderFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String selectedItem = dessertAdapter.getItem(i);
-                orderAdapter.add(new Order(table,selectedItem,"Tid","Efterrätt"));
+                orderAdapter.add(new Order(table,selectedItem,"Tid",type));
                 dessertListPopupWindow.dismiss();
             }
         });
@@ -186,9 +188,11 @@ public class AddOrderFragment extends Fragment {
         return view;
     }
 
+    //Interface for passing data
     public interface OnPassOrder {
         void onDataPassed(List<Order> list);
     }
+
 
     private void passData(){
         if(onPassOrder != null){
@@ -197,13 +201,15 @@ public class AddOrderFragment extends Fragment {
     }
 
 
-
+    //When the button to add the order is pressed.
+    //Navigates to the previous fragment.
     public void addToOrder(View view){
         //Pass the selected data in the orderList
         passData();
         System.out.println("Going back");
         this.getParentFragmentManager().popBackStack();
     }
+
 
 
 
