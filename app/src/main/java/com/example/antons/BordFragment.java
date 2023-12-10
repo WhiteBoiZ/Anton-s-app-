@@ -107,11 +107,11 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
         }
     }
 
+    //Gets the selected data from "AddOrderFragment".
     @Override
-    public void onDataPassed(List<Order> list) {
-        System.out.println(list.get(0).getType());
+    public void onDataPassed(List<Order> list, String type) {
         if(!list.isEmpty()){
-            switch(list.get(0).getType()){
+            switch(type){
                 case "Förrätt":
                     System.out.println("Sets list");
                     starterAdapter = new OrderAdapter(list);
@@ -126,6 +126,5 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
                     break;
             }
         }
-        System.out.println("In fragment" + list.get(0).getOrder() + list.get(1).getOrder());
     }
 }
