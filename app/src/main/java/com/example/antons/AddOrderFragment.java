@@ -190,13 +190,13 @@ public class AddOrderFragment extends Fragment {
 
     //Interface for passing data
     public interface OnPassOrder {
-        void onDataPassed(List<Order> list);
+        void onDataPassed(List<Order> list, String type);
     }
 
 
     private void passData(){
         if(onPassOrder != null){
-            onPassOrder.onDataPassed(orderAdapter.getTableOrders());
+            onPassOrder.onDataPassed(orderAdapter.getTableOrders(), this.type);
         }
     }
 
