@@ -26,4 +26,12 @@ public interface MyApi {
             @Query("bordId") int bordId
     );
 
+    @POST("api/bestallning/rattinstans")
+    Call<Void> addDishToOrder(
+            @Query("tagId") int tagId,
+            @Query("bestallningId") int orderId,
+            @Query("alacarteId") int alacarteId,
+            @Query("ratt_preferenser") String dishPreference
+    );
+
 }
