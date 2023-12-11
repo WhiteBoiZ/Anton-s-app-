@@ -12,14 +12,13 @@ public class Dish {
         @SerializedName("namn")
         private String name;
 
-        public Integer getId() {
+        public int getId() {
             return id;
         }
-
         public String getName() {
             return name;
         }
-        public void setId(Integer id) {
+        public void setId(int id) {
             this.id = id;
         }
 
@@ -39,25 +38,25 @@ public class Dish {
     @SerializedName("beskrivning")
     private String description;
     @SerializedName("id")
-    private Integer id;
+    private int id;
     @SerializedName("pris")
-    private Integer price;
+    private int price;
     @SerializedName("titel")
     private String title;
     @SerializedName("typ")
     private Type type;
     @SerializedName("vald")
-    private Integer picked;
+    private int picked;
 
     public String getDescription() {
         return description;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public Integer getPrice() {
+    public int getPrice() {
         return price;
     }
 
@@ -69,7 +68,7 @@ public class Dish {
         return type;
     }
 
-    public Integer getPicked() {
+    public int getPicked() {
         return picked;
     }
 
@@ -77,11 +76,11 @@ public class Dish {
         this.description = description;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -93,7 +92,7 @@ public class Dish {
         this.type = type;
     }
 
-    public void setPicked(Integer picked) {
+    public void setPicked(int picked) {
         this.picked = picked;
     }
 
