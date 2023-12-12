@@ -9,9 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import java.util.List;
 
-public class ListAdapter extends ArrayAdapter<String> {
+public class ListAdapter extends ArrayAdapter<Dish> {
 
-    public ListAdapter(Context context, int resource, List<String> objects){
+    public ListAdapter(Context context, int resource, List<Dish> objects){
         super(context, resource, objects);
     }
 
@@ -23,7 +23,7 @@ public class ListAdapter extends ArrayAdapter<String> {
             view = inflater.inflate(R.layout.simple_spinner_item, parent, false);
         }
         TextView textView = view.findViewById(R.id.spinnerText);
-        textView.setText(getItem(position));
+        textView.setText(getItem(position).getTitle());
 
         return view;
     }

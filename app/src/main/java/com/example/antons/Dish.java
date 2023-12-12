@@ -8,7 +8,7 @@ public class Dish {
 
     public static class Type {
         @SerializedName("id")
-        private Integer id;
+        private int id;
         @SerializedName("namn")
         private String name;
 

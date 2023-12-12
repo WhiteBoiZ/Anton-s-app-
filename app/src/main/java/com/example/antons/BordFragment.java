@@ -24,9 +24,9 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
     private RecyclerView starterView;
     private RecyclerView mainCourseView;
     private RecyclerView dessertView;
-    private OrderAdapter starterAdapter;
-    private OrderAdapter mainCourseAdapter;
-    private OrderAdapter dessertAdapter;
+    private DishAdapter starterAdapter;
+    private DishAdapter mainCourseAdapter;
+    private DishAdapter dessertAdapter;
 
     public static BordFragment newInstance(String table){
         BordFragment bordFragment = new BordFragment();
@@ -80,7 +80,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
     public void onClick(View view){
         if(view.getId() == R.id.addStarter){
             System.out.println("Förrätt");
-            AddOrderFragment addOrderFragment = new AddOrderFragment("Förrätt", this.getArguments().getString("tableID"));
+            AddOrderFragment addOrderFragment = new AddOrderFragment("Förrätt", this.getArguments().getString("tableID"),1);
             addOrderFragment.setOnPassOrder(this);
             getParentFragmentManager().beginTransaction()
                     .replace(R.id.fragmentContainerView, addOrderFragment)
@@ -89,7 +89,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
         }
         if(view.getId() == R.id.addMainCourse){
             System.out.println("Varmrätt");
-            AddOrderFragment addOrderFragment = new AddOrderFragment("Varmrätt", this.getArguments().getString("tableID"));
+            AddOrderFragment addOrderFragment = new AddOrderFragment("Varmrätt", this.getArguments().getString("tableID"),2);
             addOrderFragment.setOnPassOrder(this);
             getParentFragmentManager().beginTransaction()
                     .replace(R.id.fragmentContainerView, addOrderFragment)
@@ -98,7 +98,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
         }
         if(view.getId() == R.id.addDessert){
             System.out.println("Dessert");
-            AddOrderFragment addOrderFragment = new AddOrderFragment("Dessert", this.getArguments().getString("tableID"));
+            AddOrderFragment addOrderFragment = new AddOrderFragment("Efterrätt", this.getArguments().getString("tableID"),3);
             addOrderFragment.setOnPassOrder(this);
             getParentFragmentManager().beginTransaction()
                     .replace(R.id.fragmentContainerView, addOrderFragment)
@@ -109,20 +109,20 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
 
     //Gets the selected data from "AddOrderFragment".
     @Override
-    public void onDataPassed(List<Order> list, String type) {
+    public void onDataPassed(List<Dish> list, String type) {
         if(!list.isEmpty()){
             switch(type){
                 case "Förrätt":
                     System.out.println("Sets list");
-                    starterAdapter = new OrderAdapter(list);
+                    starterAdapter = new DishAdapter(list);
                     break;
                 case "Varmrätt":
                     System.out.println("Varmrätt-lista");
-                    mainCourseAdapter = new OrderAdapter(list);
+                    mainCourseAdapter = new DishAdapter(list);
                     break;
-                case "Dessert":
+                case "Efterrätt":
                     System.out.println("Dessert-lista");
-                    dessertAdapter = new OrderAdapter(list);
+                    dessertAdapter = new DishAdapter(list);
                     break;
             }
         }

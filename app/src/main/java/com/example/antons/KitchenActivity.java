@@ -40,10 +40,6 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
         Button finishDessertButton = findViewById(R.id.finishDesserts);
         selectedButton.setBackgroundResource(R.drawable.selected_button);
 
-        ApiService apiService = ApiService.getInstance();
-        MyApi myApi = apiService.getMyApi();
-
-
 
         orderView = findViewById(R.id.orderView);
         List<Order> orderList1 = new ArrayList<Order>(Arrays.asList(

@@ -35,13 +35,12 @@ public class AddOrderFragment extends Fragment {
 
     private String type;
 
+    private int typeID;
     private String table;
-
-
 
     private OnPassOrder onPassOrder;
 
-    private OrderAdapter orderAdapter;
+    private DishAdapter dishAdapter;
 
     private List<Dish> dishList = new ArrayList<Dish>();
 
@@ -54,9 +53,10 @@ public class AddOrderFragment extends Fragment {
     private ListAdapter dessertAdapter;
 
 
-    public AddOrderFragment(String type, String table) {
+    public AddOrderFragment(String type, String table, int typeID) {
         this.type = type;
         this.table = table;
+        this.typeID = typeID;
     }
 
 
@@ -78,7 +78,8 @@ public class AddOrderFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_order, container, false);
 
-
+        dishAdapter = new DishAdapter();
+        
         starterListPopupWindow = new ListPopupWindow(requireContext());
         maincourseListPopupWindow = new ListPopupWindow(requireContext());
         dessertListPopupWindow = new ListPopupWindow(requireContext());
@@ -133,33 +134,16 @@ public class AddOrderFragment extends Fragment {
 
 
 
-        List<Order> orderList = new ArrayList<Order>(Arrays.asList(new Order("1","Fisk","15:50", type),
-                new Order("1","Kött","15:50", type)));
 
-        this.orderAdapter = new OrderAdapter(orderList){
 
-            @NonNull
-            @Override
-            public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.add_order, parent, false);
 
-                return new ViewHolder(view);
 
-            }
 
-            @Override
-            public void onBindViewHolder(@NonNull ViewHolder holder, int position){
-                Order order = orderList.get(position);
-                holder.getOrder().setText(order.getOrder());
-                holder.setType(holder.itemView.findViewById(R.id.typeText));
-                holder.getType().setText(order.getType());
-            }
-        };
+
 
         RecyclerView selectedView = view.findViewById(R.id.selectedOrders);
         selectedView.setLayoutManager(new LinearLayoutManager(this.requireContext()));
-        selectedView.setAdapter(orderAdapter);
+        selectedView.setAdapter(dishAdapter);
 
 
 
@@ -171,9 +155,11 @@ public class AddOrderFragment extends Fragment {
         starterListPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = starterListAdapter.getItem(position);
-                System.out.println(selectedItem);
-                orderAdapter.add(new Order(table,selectedItem,"Tid",type));
+                Dish selectedDish = starterListAdapter.getItem(position);
+                selectedDish.getType().setName(type);
+                selectedDish.getType().setId(typeID);
+                System.out.println(selectedDish.getTitle());
+                dishAdapter.add(selectedDish);
                 starterListPopupWindow.dismiss();
             }
         });
@@ -190,8 +176,11 @@ public class AddOrderFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String selectedItem = mainCourseAdapter.getItem(i);
-                orderAdapter.add(new Order(table,selectedItem,"Tid",type));
+                Dish selectedDish = mainCourseAdapter.getItem(i);
+                selectedDish.getType().setName(type);
+                selectedDish.getType().setId(typeID);
+                System.out.println(selectedDish.getTitle());
+                dishAdapter.add(selectedDish);
                 maincourseListPopupWindow.dismiss();
             }
         });
@@ -207,8 +196,10 @@ public class AddOrderFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String selectedItem = dessertAdapter.getItem(i);
-                orderAdapter.add(new Order(table,selectedItem,"Tid",type));
+                Dish selectedDish = dessertAdapter.getItem(i);
+                selectedDish.getType().setName(type);
+                selectedDish.getType().setId(typeID);
+                dishAdapter.add(selectedDish);
                 dessertListPopupWindow.dismiss();
             }
         });
@@ -224,13 +215,13 @@ public class AddOrderFragment extends Fragment {
 
     //Interface for passing data
     public interface OnPassOrder {
-        void onDataPassed(List<Order> list, String type);
+        void onDataPassed(List<Dish> list, String type);
     }
 
 
     private void passData(){
         if(onPassOrder != null){
-            onPassOrder.onDataPassed(orderAdapter.getTableOrders(), this.type);
+            onPassOrder.onDataPassed(dishAdapter.getSelectedDishes(), this.type);
         }
     }
 
@@ -248,19 +239,19 @@ public class AddOrderFragment extends Fragment {
         if(this.dishList == null){
             return;
         }
-        List<String> starters = new ArrayList<>();
-        List<String> mainCourse = new ArrayList<>();
-        List<String> dessert = new ArrayList<>();
+        List<Dish> starters = new ArrayList<>();
+        List<Dish> mainCourse = new ArrayList<>();
+        List<Dish> dessert = new ArrayList<>();
         for (Dish item: this.dishList){
             switch(item.getType().getName()){
                 case "Förrätt":
-                    starters.add(item.getTitle());
+                    starters.add(item);
                     break;
                 case "Varmrätt":
-                    mainCourse.add(item.getTitle());
+                    mainCourse.add(item);
                     break;
-                case "Dessert":
-                    dessert.add(item.getTitle());
+                case "Efterrätt":
+                    dessert.add(item);
                     break;
 
             }
