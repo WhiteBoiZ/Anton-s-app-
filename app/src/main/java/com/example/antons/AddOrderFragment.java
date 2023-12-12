@@ -4,10 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +25,13 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
+//Fragment to add dishes to a table order.
 public class AddOrderFragment extends Fragment {
-
-
 
     private String type;
 
@@ -38,6 +42,16 @@ public class AddOrderFragment extends Fragment {
     private OnPassOrder onPassOrder;
 
     private OrderAdapter orderAdapter;
+
+    private List<Dish> dishList = new ArrayList<Dish>();
+
+    private ListPopupWindow starterListPopupWindow;
+    private ListPopupWindow maincourseListPopupWindow;
+    private ListPopupWindow dessertListPopupWindow;
+
+    private ListAdapter starterListAdapter;
+    private ListAdapter mainCourseAdapter;
+    private ListAdapter dessertAdapter;
 
 
     public AddOrderFragment(String type, String table) {
@@ -63,30 +77,58 @@ public class AddOrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_order, container, false);
-        Button finishOrderButton = view.findViewById(R.id.addToListButton);
-        finishOrderButton.setOnClickListener(this::addToOrder);
 
-        String[] starters = {"item1", "item2", "item3","item1", "item2", "item3","item1", "item2", "item3","item1", "item2", "item3"};
-        String[] mainCourse = {"Lasagne", "Köttbullar"};
-        String[] dessert = {"Glass", "Morotskaka"};
-        ListAdapter starterListAdapter = new ListAdapter(requireContext(),R.layout.simple_spinner_item, Arrays.asList(starters));
-        ListAdapter mainCourseAdapter = new ListAdapter(requireContext(),R.layout.simple_spinner_item, Arrays.asList(mainCourse));
-        ListAdapter dessertAdapter = new ListAdapter(requireContext(),R.layout.simple_spinner_item, Arrays.asList(dessert));
-        ListPopupWindow starterListPopupWindow = new ListPopupWindow(requireContext());
-        ListPopupWindow maincourseListPopupWindow = new ListPopupWindow(requireContext());
-        ListPopupWindow dessertListPopupWindow = new ListPopupWindow(requireContext());
+
+        starterListPopupWindow = new ListPopupWindow(requireContext());
+        maincourseListPopupWindow = new ListPopupWindow(requireContext());
+        dessertListPopupWindow = new ListPopupWindow(requireContext());
         starterListPopupWindow.setAnchorView(view.findViewById(R.id.starterSelector));
         maincourseListPopupWindow.setAnchorView(view.findViewById(R.id.mainCourseSelector));
         dessertListPopupWindow.setAnchorView(view.findViewById(R.id.dessertSelector));
-        starterListPopupWindow.setAdapter(starterListAdapter);
-        maincourseListPopupWindow.setAdapter(mainCourseAdapter);
-        dessertListPopupWindow.setAdapter(dessertAdapter);
-
-
 
         starterListPopupWindow.setHeight(200);
         maincourseListPopupWindow.setHeight(200);
         dessertListPopupWindow.setHeight(200);
+
+
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Button finishOrderButton = view.findViewById(R.id.addToListButton);
+        finishOrderButton.setOnClickListener(this::addToOrder);
+
+
+        ApiService apiService = ApiService.getInstance();
+        MyApi myApi = apiService.getMyApi();
+        apiService.fetchDishes(new Callback<List<Dish>>() {
+            @Override
+            public void onResponse(Call<List<Dish>> call, Response<List<Dish>> response) {
+                if (response.isSuccessful()) {
+                    Log.d("ApiService", "API request successful: " + response);
+                    setDishList(response.body());
+                    System.out.println(getDishList());
+                    for (Dish dish : getDishList()) {
+                        System.out.println(dish.getTitle());
+                    }
+                    //Create the list of dishes.
+                    createList();
+                } else {
+                    Log.e("ApiService", "API request failed: " + response.message());
+                    // Handle the error here
+                }            }
+
+            @Override
+            public void onFailure(Call<List<Dish>> call, Throwable t) {
+                Log.e("ApiService", "API request failed: " + t.getMessage());
+                // Handle the failure here
+            }
+        });
+
+
 
 
 
@@ -178,14 +220,6 @@ public class AddOrderFragment extends Fragment {
             }
         });
 
-
-
-
-
-
-
-
-        return view;
     }
 
     //Interface for passing data
@@ -208,6 +242,45 @@ public class AddOrderFragment extends Fragment {
         passData();
         System.out.println("Going back");
         this.getParentFragmentManager().popBackStack();
+    }
+
+    private void createList(){
+        if(this.dishList == null){
+            return;
+        }
+        List<String> starters = new ArrayList<>();
+        List<String> mainCourse = new ArrayList<>();
+        List<String> dessert = new ArrayList<>();
+        for (Dish item: this.dishList){
+            switch(item.getType().getName()){
+                case "Förrätt":
+                    starters.add(item.getTitle());
+                    break;
+                case "Varmrätt":
+                    mainCourse.add(item.getTitle());
+                    break;
+                case "Dessert":
+                    dessert.add(item.getTitle());
+                    break;
+
+            }
+        }
+
+        starterListAdapter = new ListAdapter(requireContext(),R.layout.simple_spinner_item, starters);
+        mainCourseAdapter = new ListAdapter(requireContext(),R.layout.simple_spinner_item, mainCourse);
+        dessertAdapter = new ListAdapter(requireContext(),R.layout.simple_spinner_item, dessert);
+        starterListPopupWindow.setAdapter(starterListAdapter);
+        maincourseListPopupWindow.setAdapter(mainCourseAdapter);
+        dessertListPopupWindow.setAdapter(dessertAdapter);
+    }
+
+
+    public List<Dish> getDishList() {
+        return dishList;
+    }
+
+    public void setDishList(List<Dish> dishList) {
+        this.dishList = dishList;
     }
 
 

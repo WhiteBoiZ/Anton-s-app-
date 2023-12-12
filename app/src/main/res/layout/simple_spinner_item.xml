@@ -3,5 +3,4 @@
     android:id="@+id/spinnerText"
     android:layout_width="140dp"
     android:layout_height="30dp"
-    android:ellipsize="marquee"
     />

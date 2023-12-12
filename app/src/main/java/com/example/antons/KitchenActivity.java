@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
+
 public class KitchenActivity extends AppCompatActivity implements TableOrderAdapter.OnTableClickListener {
 
     private TableOrderAdapter tableOrderAdapter;
@@ -38,6 +39,10 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
         Button finishMainCoursesButton = findViewById(R.id.finishMainCourse);
         Button finishDessertButton = findViewById(R.id.finishDesserts);
         selectedButton.setBackgroundResource(R.drawable.selected_button);
+
+        ApiService apiService = ApiService.getInstance();
+        MyApi myApi = apiService.getMyApi();
+
 
 
         orderView = findViewById(R.id.orderView);

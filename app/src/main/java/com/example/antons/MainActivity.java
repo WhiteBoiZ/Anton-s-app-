@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         int tableId = 5;
 
         Call<Void> call = myApi.addOrder(date, time, comment, tableId);
+        /*
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -53,11 +54,11 @@ public class MainActivity extends AppCompatActivity {
                 // Handle failure
                 Log.e("ApiService", "POST request failed: " + t.getMessage());
             }
-        });
+        });*/
 
 
-
-        /*apiService.fetchDishes(new Callback<List<Dish>>() {
+        /*
+        apiService.fetchDishes(new Callback<List<Dish>>() {
             @Override
             public void onResponse(Call<List<Dish>> call, Response<List<Dish>> response) {
                 if (response.isSuccessful()) {
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("ApiService", "API request failed: " + t.getMessage());
                 // Handle the failure here
             }
-        }); */
+        });*/
 
         /*apiService.fetchOrders(new Callback<List<OrderApi>>() {
             @Override
