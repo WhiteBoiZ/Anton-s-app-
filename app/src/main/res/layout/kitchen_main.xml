@@ -7,24 +7,16 @@
     android:orientation="horizontal">
 
 
-    <include
-        android:id="@+id/navbar"
-        layout="@layout/button_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp" />
-
-
     <ScrollView
-        android:layout_width="300dp"
-        android:layout_height="500dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="333dp"
+        android:layout_height="746dp"
         android:background="@drawable/scroll_box"
         android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/column2"
-        app:layout_constraintHorizontal_bias="0.348"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navbar">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/orderView"
@@ -33,22 +25,20 @@
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </ScrollView>
 
     <LinearLayout
         android:id="@+id/column2"
-        android:layout_width="305dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="428dp"
+        android:layout_height="742dp"
         android:background="@drawable/scroll_box"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.91"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navbar">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tableText2"
@@ -65,11 +55,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="Förrätter"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <ScrollView
             android:id="@+id/scrollView2"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="120dp"
             android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +81,7 @@
         <Button
             android:id="@+id/finishStarters"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
+            android:layout_height="48dp"
             android:text="Klar" />
 
         <TextView
@@ -100,11 +90,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="Varmrätter"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <ScrollView
             android:id="@+id/scrollView3"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="120dp"
             android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -126,7 +116,7 @@
         <Button
             android:id="@+id/finishMainCourse"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
+            android:layout_height="48dp"
             android:text="Klar" />
 
         <TextView
@@ -135,11 +125,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="Dessert"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <ScrollView
             android:id="@+id/scrollView4"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="120dp"
             android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -161,21 +151,10 @@
         <Button
             android:id="@+id/finishDesserts"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
+            android:layout_height="48dp"
             android:text="Klar" />
 
     </LinearLayout>
-
-
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="185dp"
-        android:layout_height="108dp"
-        android:layout_marginEnd="536dp"
-        android:layout_marginBottom="44dp"
-        android:text="Tillbaka"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
