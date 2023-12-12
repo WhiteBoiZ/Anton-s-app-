@@ -4,26 +4,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="65dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="65dp"
     tools:context=".BordFragment">
-
 
 
     <LinearLayout
         android:id="@+id/column2"
-        android:layout_width="331dp"
-        android:layout_height="826dp"
+        android:layout_width="297dp"
+        android:layout_height="708dp"
 
+        android:layout_marginTop="4dp"
         android:background="@drawable/scroll_box"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toStartOf="@+id/addPreOrder"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <TextView
@@ -31,14 +29,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Förrätter"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/starterSelector"
-            android:layout_width="140dp"
+            android:layout_width="130dp"
             android:layout_height="48dp"
-            android:text="Välj"
-            />
+            android:text="Välj" />
 
 
         <TextView
@@ -47,15 +44,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="75sp"
             android:text="Varmrätter"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
 
         <Button
             android:id="@+id/mainCourseSelector"
-            android:layout_width="140dp"
+            android:layout_width="130dp"
             android:layout_height="48dp"
-            android:text="Välj"
-            />
+            android:text="Välj" />
 
         <TextView
             android:id="@+id/dessertText"
@@ -63,14 +59,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="75sp"
             android:text="Dessert"
-            android:textSize="30sp"/>
+            android:textSize="30sp" />
 
         <Button
             android:id="@+id/dessertSelector"
-            android:layout_width="140dp"
+            android:layout_width="130dp"
             android:layout_height="48dp"
-            android:text="Välj"
-            />
+            android:text="Välj" />
 
         <TextView
             android:id="@+id/drinkText"
@@ -82,28 +77,23 @@
 
         <Button
             android:id="@+id/drinkSelector"
-            android:layout_width="140dp"
+            android:layout_width="130dp"
             android:layout_height="48dp"
-            android:text="Välj"
-            />
+            android:text="Välj" />
 
 
     </LinearLayout>
 
-
-
     <LinearLayout
         android:id="@+id/addPreOrder"
-        android:layout_width="304dp"
-        android:layout_height="821dp"
+        android:layout_width="311dp"
+        android:layout_height="703dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
         android:background="@drawable/scroll_box"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.041">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <TextView
@@ -138,7 +128,6 @@
 
 
     </LinearLayout>
-
 
     <Button
         android:id="@+id/addToListButton"
