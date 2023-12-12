@@ -30,16 +30,37 @@ public class MainActivity extends AppCompatActivity {
 
         ApiService apiService = ApiService.getInstance();
         MyApi myApi = apiService.getMyApi();
-        String date = "2023-12-08";
-        String time = "14:35:00";
-        String comment = "TESTING";
-        int tableId = 5;
+        String date = "2023-12-12";
+        String time = "12:35:00";
+        String comment = "TESTTESTTEST";
+        int tableId = 2;
 
-        Call<Void> call = myApi.addOrder(date, time, comment, tableId);
-        /*
+        int orderId = 20;
+
+        Call<Void> call = myApi.deleteOrder(orderId);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Handle successful response (resource deleted)
+                    Log.d("ApiConnector", "DELETE request successful");
+                } else {
+                    // Handle unsuccessful response
+                    Log.e("ApiConnector", "DELETE request failed: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+                Log.e("ApiConnector", "DELETE request failed: " + t.getMessage());
+            }
+        });
+
+       /* Call<OrderTest> call = myApi.addOrder(date, time, comment, tableId);
+        call.enqueue(new Callback<OrderTest>() {
+            @Override
+            public void onResponse(Call<OrderTest> call, Response<OrderTest> response) {
                 if (response.isSuccessful()) {
                     // Handle successful response
                     Log.d("ApiService", "POST request successful");
@@ -48,17 +69,16 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("ApiService", "POST request failed: " + response.message());
                 }
             }
-
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<OrderTest> call, Throwable t) {
                 // Handle failure
                 Log.e("ApiService", "POST request failed: " + t.getMessage());
             }
-        });*/
+        }); */
 
 
-        /*
-        apiService.fetchDishes(new Callback<List<Dish>>() {
+
+       /* apiService.fetchDishes(new Callback<List<Dish>>() {
             @Override
             public void onResponse(Call<List<Dish>> call, Response<List<Dish>> response) {
                 if (response.isSuccessful()) {
@@ -79,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("ApiService", "API request failed: " + t.getMessage());
                 // Handle the failure here
             }
-        });*/
+        }); */
 
         /*apiService.fetchOrders(new Callback<List<OrderApi>>() {
             @Override
