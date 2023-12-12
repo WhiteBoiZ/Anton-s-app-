@@ -27,9 +27,7 @@
         <activity android:name=".GolvActivity">
             <!-- Intent filters if necessary -->
         </activity>
-        <activity android:name=".Bord1Activity">
 
-        </activity>
         <activity android:name=".Bord2Activity">
 
         </activity>

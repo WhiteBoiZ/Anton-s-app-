@@ -34,11 +34,11 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
         setContentView(R.layout.kitchen_main);
 
         Button backButton = findViewById(R.id.backButton);
-        Button selectedButton = findViewById(R.id.kokButton);
+        //Button selectedButton = findViewById(R.id.kokButton);
         Button finishStartersButton = findViewById(R.id.finishStarters);
         Button finishMainCoursesButton = findViewById(R.id.finishMainCourse);
         Button finishDessertButton = findViewById(R.id.finishDesserts);
-        selectedButton.setBackgroundResource(R.drawable.selected_button);
+        //selectedButton.setBackgroundResource(R.drawable.selected_button);
 
 
         orderView = findViewById(R.id.orderView);

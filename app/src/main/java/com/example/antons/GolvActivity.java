@@ -17,6 +17,8 @@ public class GolvActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.golv_main);
+
+
         // Sätt upp OnClickListener för varje bordknapp
 
         //setupButtonClickListener(R.id.bord1Button, BordFragment.class);
@@ -42,49 +44,76 @@ public class GolvActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private void resetButtonBackgrounds(int clickedButtonId) {
+        int[] buttonIds = {R.id.bord1Button, R.id.bord2Button, R.id.bord3Button, R.id.bord4Button,
+                R.id.bord5Button, R.id.bord6Button, R.id.bord7Button, R.id.bord8Button};
 
+        for (int id : buttonIds) {
+            if (id != clickedButtonId) {
+                Button button = findViewById(id);
+                button.setBackgroundResource(R.drawable.button_background);
+            }
+        }
+    }
 
     @Override
     public void onClick(View view){
         if (view.getId() == R.id.bord1Button) {
             System.out.println("Clicked: " + view.getTag().toString());
             //System.out.println(getStackCount());
+            resetButtonBackgrounds(view.getId());
+            view.setBackgroundResource(R.drawable.selected_button);
             createFragment(view);
             //System.out.println(getStackCount());
             return;
         }
         if (view.getId() == R.id.bord2Button) {
             System.out.println("Clicked:" + view.getTag().toString());
+            resetButtonBackgrounds(view.getId());
+            view.setBackgroundResource(R.drawable.selected_button);
             createFragment(view);
             return;
         }
         if (view.getId() == R.id.bord3Button) {
             System.out.println("Clicked: " + view.getTag().toString());
+            resetButtonBackgrounds(view.getId());
+            view.setBackgroundResource(R.drawable.selected_button);
             createFragment(view);
+
             return;
         }
         if (view.getId() == R.id.bord4Button) {
             System.out.println("Clicked:" + view.getTag().toString());
+            resetButtonBackgrounds(view.getId());
+            view.setBackgroundResource(R.drawable.selected_button);
             createFragment(view);
             return;
         }
         if (view.getId() == R.id.bord5Button) {
             System.out.println("Clicked: " + view.getTag().toString());
+            resetButtonBackgrounds(view.getId());
+            view.setBackgroundResource(R.drawable.selected_button);
             createFragment(view);
             return;
         }
         if (view.getId() == R.id.bord6Button) {
             System.out.println("Clicked:" + view.getTag().toString());
+            resetButtonBackgrounds(view.getId());
+            view.setBackgroundResource(R.drawable.selected_button);
             createFragment(view);
             return;
         }
         if (view.getId() == R.id.bord7Button) {
             System.out.println("Clicked: " + view.getTag().toString());
+            resetButtonBackgrounds(view.getId());
+            view.setBackgroundResource(R.drawable.selected_button);
             createFragment(view);
             return;
         }
         if (view.getId() == R.id.bord8Button) {
             System.out.println("Clicked:" + view.getTag().toString());
+            resetButtonBackgrounds(view.getId());
+            view.setBackgroundResource(R.drawable.selected_button);
             createFragment(view);
         }
     }
