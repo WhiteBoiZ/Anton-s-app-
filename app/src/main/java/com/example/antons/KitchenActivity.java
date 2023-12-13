@@ -35,6 +35,8 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
 
     private List<OrderApi> orderList;
 
+    private List<OrderTemp> orderApiList;
+
     private void deleteDish(int id, int orderId, int dishId) {
         ApiService apiService = ApiService.getInstance();
         MyApi myApi = apiService.getMyApi();
@@ -102,12 +104,10 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
         orderView = findViewById(R.id.orderView);
 
 
-        List<TableOrder> tableOrderList = new ArrayList<>();
+        //List<TableOrder> tableOrderList = new ArrayList<>();
 
-        tableOrderAdapter = new TableOrderAdapter(tableOrderList);
-        tableOrderAdapter.setOnTableClickListener(this);
-        orderView.setLayoutManager(new LinearLayoutManager(this));
-        orderView.setAdapter(tableOrderAdapter);
+
+
 
 
 
@@ -130,7 +130,7 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
                     starterOrderAdapter.clear();
                     starterView.setLayoutManager(null);
                     starterView.setAdapter(null);
-                    tableOrderAdapter.removeOrder(order.getOrder().getTableID(), order.getTagName());
+                    tableOrderAdapter.removeOrder(order.getOrder().getTableID(), order.getTagID(), order.getOrder().getTime());
                     System.out.println("Clicked");
                     if(!tableOrderAdapter.isEmpty()){
                         orderView.setAdapter(tableOrderAdapter);
@@ -152,7 +152,7 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
                     mainCourseOrderAdapter.clear();
                     mainCourseView.setLayoutManager(null);
                     mainCourseView.setAdapter(null);
-                    tableOrderAdapter.removeOrder(order.getOrder().getTableID(), order.getTagName());
+                    tableOrderAdapter.removeOrder(order.getOrder().getTableID(), order.getTagID(), order.getOrder().getTime());
                     orderView.setAdapter(tableOrderAdapter);
                     System.out.println("Clicked");
                     if(!tableOrderAdapter.isEmpty()){
@@ -176,7 +176,7 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
                     dessertOrderAdapter.clear();
                     dessertView.setLayoutManager(null);
                     dessertView.setAdapter(null);
-                    tableOrderAdapter.removeOrder(order.getOrder().getTableID(), order.getTagName());
+                    tableOrderAdapter.removeOrder(order.getOrder().getTableID(), order.getTagID(), order.getOrder().getTime());
                     if(!tableOrderAdapter.isEmpty()){
                         orderView.setAdapter(tableOrderAdapter);
                     }else{
@@ -189,32 +189,53 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
             }
         });
 
+        fetchOrders();
 
-
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
 
-    public void fetchOrders(){
+    private void setOrderList(List<OrderTemp> orderApiList){
+        if(orderApiList != null) {
+            if (!orderApiList.isEmpty()) {
+                List<TableOrder> tableOrderList = new ArrayList<>();
+                for (OrderTemp orderTemp : orderApiList) {
+                    tableOrderList.add(new TableOrder(orderTemp.getSelectedList(), orderTemp.getOrderInfo().getTableID(), orderTemp.getOrderInfo().getTime()));
+                }
+                tableOrderAdapter = new TableOrderAdapter(tableOrderList);
+                tableOrderAdapter.setOnTableClickListener(this);
+                orderView.setLayoutManager(new LinearLayoutManager(this));
+                orderView.setAdapter(tableOrderAdapter);
+            }
+        }
+    }
+
+    private void fetchOrders(){
         ApiService apiService = ApiService.getInstance();
-        apiService.fetchOrders(new Callback<List<OrderApi>>() {
+
+        apiService.fetchOrders(new Callback<List<OrderTemp>>() {
             @Override
-            public void onResponse(Call<List<OrderApi>> call, Response<List<OrderApi>> response) {
+            public void onResponse(Call<List<OrderTemp>> call, Response<List<OrderTemp>> response) {
                 if (response.isSuccessful()) {
                     Log.d("ApiService", "API request successful: " + response);
-                    List<OrderApi> orderApiList = response.body();
+                    orderApiList = response.body();
                     System.out.println(orderApiList);
-                    // Handle the response data here
+                    setOrderList(orderApiList);
                 } else {
                     Log.e("ApiService", "API request failed: " + response.message());
                     // Handle the error here
                 }            }
 
             @Override
-            public void onFailure(Call<List<OrderApi>> call, Throwable t) {
+            public void onFailure(Call<List<OrderTemp>> call, Throwable t) {
                 Log.e("ApiService", "API request failed: " + t.getMessage());
                 // Handle the failure here
             }
         });
+
 
 
     }
@@ -226,21 +247,21 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
     * */
     @Override
     public void tableOnClick(int tableID, List<OrderApi> orderList){
-        //List<Order> tableClicked = new ArrayList<Order>();
         List<OrderApi> starterList = new ArrayList<>();
         List<OrderApi> mainCourseList = new ArrayList<>();
         List<OrderApi> dessertList = new ArrayList<>();
         for(int i = 0; i<orderList.size();++i){
             if(orderList.get(i).getOrder().getTableID() == tableID){
                 System.out.println("Bord" + tableID);
-                switch(orderList.get(i).getTagName()){
-                    case "Varmrätt":
+                System.out.println(orderList.get(i).getId());
+                switch(orderList.get(i).getTagID()){
+                    case 1:
                         mainCourseList.add(orderList.get(i));
                         break;
-                    case "Förrätt":
+                    case 2:
                         starterList.add(orderList.get(i));
                         break;
-                    case "Dessert":
+                    case 3:
                         dessertList.add(orderList.get(i));
                         break;
                 }

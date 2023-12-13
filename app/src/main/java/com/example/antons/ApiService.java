@@ -31,8 +31,8 @@ public class ApiService {
         return instance;
     }
 
-    public void fetchOrders(Callback<List<OrderApi>> callback) {
-        Call<List<OrderApi>> call = myApi.getOrders();
+    public void fetchOrders(Callback<List<OrderTemp>> callback) {
+        Call<List<OrderTemp>> call = myApi.getOrders();
         call.enqueue(callback);
     }
 

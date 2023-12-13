@@ -99,13 +99,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }); */
 
-        apiService.fetchOrders(new Callback<List<OrderApi>>() {
+        apiService.fetchOrders(new Callback<List<OrderTemp>>() {
             @Override
-            public void onResponse(Call<List<OrderApi>> call, Response<List<OrderApi>> response) {
+            public void onResponse(Call<List<OrderTemp>> call, Response<List<OrderTemp>> response) {
                 if (response.isSuccessful()) {
                     Log.d("ApiService", "API request successful: " + response);
-                    List<OrderApi> orderList = response.body();
-                    System.out.println(orderList);
+                    List<OrderTemp> orderApiList = response.body();
+                    System.out.println(orderApiList);
                     // Handle the response data here
                 } else {
                     Log.e("ApiService", "API request failed: " + response.message());
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 }            }
 
             @Override
-            public void onFailure(Call<List<OrderApi>> call, Throwable t) {
+            public void onFailure(Call<List<OrderTemp>> call, Throwable t) {
                 Log.e("ApiService", "API request failed: " + t.getMessage());
                 // Handle the failure here
             }

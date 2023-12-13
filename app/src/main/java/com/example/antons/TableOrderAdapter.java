@@ -105,9 +105,9 @@ public class TableOrderAdapter extends RecyclerView.Adapter<TableOrderAdapter.Vi
     /*
     * Removes orders with a specific type from a table.
     * */
-    public void removeOrder(int tableID, String type){
+    public void removeOrder(int tableID, int typeID, String time){
         for(TableOrder tableOrder: orderList){
-            tableOrder.getOrderList().removeIf(item -> (item.getOrder().getTableID() == tableID && item.getTagName().equals(type)));
+            tableOrder.getOrderList().removeIf(item -> (item.getOrder().getTableID() == tableID && item.getTagID() == typeID && item.getOrder().getTime().equals(time)));
         }
         orderList.removeIf(TableOrder::isEmpty);
 

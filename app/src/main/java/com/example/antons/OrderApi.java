@@ -87,6 +87,8 @@ public class OrderApi {
 
     public String getTagName(){return tag.getName();}
 
+    public int getTagID(){return tag.getId();}
+
     public void setTag(Tag tag) {
         this.tag = tag;
     }
