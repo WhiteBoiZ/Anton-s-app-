@@ -16,9 +16,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.format.DateTimeFormatter;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -147,10 +149,14 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
     public void createOrder(View view) {
         ApiService apiService = ApiService.getInstance();
         MyApi myApi = apiService.getMyApi();
-        String time = "15:32:00";
-        String date = "datum";
+        ZoneId zoneId = ZoneId.of("Europe/Stockholm");
+        LocalDate currentDate = LocalDate.now(zoneId);
+        LocalTime currentTime = LocalTime.now(zoneId);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String date = currentDate.format(dateFormatter);
+        String time = currentTime.format(timeFormatter);
         Call<OrderTest> call = myApi.addOrder(date, time, "comment", tableId);
-
         call.enqueue(new Callback<OrderTest>() {
             @Override
             public void onResponse(Call<OrderTest> call, Response<OrderTest> response) {
