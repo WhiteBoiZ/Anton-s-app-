@@ -5,7 +5,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class OrderTemp {
+    @SerializedName("bestallning")
     private OrderTest orderInfo;
+    @SerializedName("rattInstanser")
     private List<OrderApi> selectedList;
 
     public OrderTest getOrderInfo() {
