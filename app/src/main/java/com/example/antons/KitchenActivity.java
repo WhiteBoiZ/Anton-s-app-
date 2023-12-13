@@ -1,6 +1,8 @@
 package com.example.antons;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,6 +15,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class KitchenActivity extends AppCompatActivity implements TableOrderAdapter.OnTableClickListener {
@@ -28,6 +33,8 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
     private RecyclerView mainCourseView;
     private RecyclerView dessertView;
 
+    private List<OrderApi> orderList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,33 +47,13 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
         Button finishDessertButton = findViewById(R.id.finishDesserts);
         //selectedButton.setBackgroundResource(R.drawable.selected_button);
 
+;
+
 
         orderView = findViewById(R.id.orderView);
-        List<Order> orderList1 = new ArrayList<Order>(Arrays.asList(
-                new Order("1","Fisk", "14:10", "Förrätt"),
-                new Order("1","Kött", "15:40", "Varmrätt"),
-                new Order("1", "Kyckling och curry", "15:40", "Varmrätt"),
-                new Order("1", "Kyckling och curry", "15:40", "Varmrätt"),
-                new Order("1", "Kyckling och curry", "15:40", "Varmrätt"),
-                new Order("1", "Kyckling och curry", "15:40", "Varmrätt"),
-                new Order("1", "Kyckling och curry", "15:40", "Varmrätt"),
-                new Order("1", "Kyckling och curry", "15:40", "Varmrätt"),
-                new Order("1", "Kyckling och curry", "15:40", "Varmrätt")));
 
-        List<Order> orderList2 = new ArrayList<Order>(Arrays.asList(
-                new Order("2", "Kyckling och curry", "15:40", "Varmrätt"),
-                new Order("2", "Pizza", "20:15", "Förrätt"),
-                new Order("2", "Spaghetti och köttfärssås", "16:00", "Varmrätt"),
-                new Order("2", "Glass", "19:20", "Dessert"),
-                new Order("2", "Lax", "17:40", "Varmrätt"),
-                new Order("2", "Vegetariskt", "15:40", "Varmrätt"
-        )));
 
-        List<TableOrder> tableOrderList = new ArrayList<TableOrder>(Arrays.asList(
-                new TableOrder(orderList1,"1","14:30"),
-                new TableOrder(orderList2,"2","15:30")
-        ));
-
+        List<TableOrder> tableOrderList = new ArrayList<>();
 
         tableOrderAdapter = new TableOrderAdapter(tableOrderList);
         tableOrderAdapter.setOnTableClickListener(this);
@@ -88,12 +75,13 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
         finishStartersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(starterOrderAdapter == null){return;}
                 if(starterOrderAdapter.getItemCount() != 0){
-                    Order order = starterOrderAdapter.getItem(0);
+                    OrderApi order = starterOrderAdapter.getItem(0);
                     starterOrderAdapter.clear();
                     starterView.setLayoutManager(null);
                     starterView.setAdapter(null);
-                    tableOrderAdapter.removeOrder(order.getTable(), order.getType());
+                    tableOrderAdapter.removeOrder(order.getOrder().getTableID(), order.getTagName());
                     System.out.println("Clicked");
                     if(!tableOrderAdapter.isEmpty()){
                         orderView.setAdapter(tableOrderAdapter);
@@ -109,12 +97,13 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
         finishMainCoursesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(mainCourseOrderAdapter == null){return;}
                 if(mainCourseOrderAdapter.getItemCount() != 0){
-                    Order order = mainCourseOrderAdapter.getItem(0);
+                    OrderApi order = mainCourseOrderAdapter.getItem(0);
                     mainCourseOrderAdapter.clear();
                     mainCourseView.setLayoutManager(null);
                     mainCourseView.setAdapter(null);
-                    tableOrderAdapter.removeOrder(order.getTable(), order.getType());
+                    tableOrderAdapter.removeOrder(order.getOrder().getTableID(), order.getTagName());
                     orderView.setAdapter(tableOrderAdapter);
                     System.out.println("Clicked");
                     if(!tableOrderAdapter.isEmpty()){
@@ -132,12 +121,13 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
         finishDessertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(dessertOrderAdapter == null){return;}
                 if(dessertOrderAdapter.getItemCount() != 0){
-                    Order order = dessertOrderAdapter.getItem(0);
+                    OrderApi order = dessertOrderAdapter.getItem(0);
                     dessertOrderAdapter.clear();
                     dessertView.setLayoutManager(null);
                     dessertView.setAdapter(null);
-                    tableOrderAdapter.removeOrder(order.getTable(), order.getType());
+                    tableOrderAdapter.removeOrder(order.getOrder().getTableID(), order.getTagName());
                     if(!tableOrderAdapter.isEmpty()){
                         orderView.setAdapter(tableOrderAdapter);
                     }else{
@@ -154,21 +144,47 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
 
     }
 
+
+    public void fetchOrders(){
+        ApiService apiService = ApiService.getInstance();
+        apiService.fetchOrders(new Callback<List<OrderApi>>() {
+            @Override
+            public void onResponse(Call<List<OrderApi>> call, Response<List<OrderApi>> response) {
+                if (response.isSuccessful()) {
+                    Log.d("ApiService", "API request successful: " + response);
+                    List<OrderApi> orderApiList = response.body();
+                    System.out.println(orderApiList);
+                    // Handle the response data here
+                } else {
+                    Log.e("ApiService", "API request failed: " + response.message());
+                    // Handle the error here
+                }            }
+
+            @Override
+            public void onFailure(Call<List<OrderApi>> call, Throwable t) {
+                Log.e("ApiService", "API request failed: " + t.getMessage());
+                // Handle the failure here
+            }
+        });
+
+
+    }
+
     /*
     * Implementation of the "On click method" for the TableOrderAdapter.
     * Divides the orders that the table has ordered in to different recyclerview's depending on its type.
     * Connects the adapters to each view.
     * */
     @Override
-    public void tableOnClick(String table, List<Order> orderList){
+    public void tableOnClick(int tableID, List<OrderApi> orderList){
         //List<Order> tableClicked = new ArrayList<Order>();
-        List<Order> starterList = new ArrayList<>();
-        List<Order> mainCourseList = new ArrayList<>();
-        List<Order> dessertList = new ArrayList<>();
+        List<OrderApi> starterList = new ArrayList<>();
+        List<OrderApi> mainCourseList = new ArrayList<>();
+        List<OrderApi> dessertList = new ArrayList<>();
         for(int i = 0; i<orderList.size();++i){
-            if(orderList.get(i).getTable().equals(table)){
-                System.out.println("Bord" + table);
-                switch(orderList.get(i).getType()){
+            if(orderList.get(i).getOrder().getTableID() == tableID){
+                System.out.println("Bord" + tableID);
+                switch(orderList.get(i).getTagName()){
                     case "Varmrätt":
                         mainCourseList.add(orderList.get(i));
                         break;
@@ -185,7 +201,7 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
         if(!orderList.isEmpty()){
             //tableOrderView = findViewById(R.id.tableOrders);
             TextView tableLabel = findViewById(R.id.tableText2);
-            tableLabel.setText("Bord: " + table);
+            tableLabel.setText("Bord: " + tableID);
 
             starterView = findViewById(R.id.starterOrders);
             starterOrderAdapter = new OrderAdapter(starterList);

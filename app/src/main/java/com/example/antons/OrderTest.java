@@ -82,6 +82,8 @@ public class OrderTest {
         return table;
     }
 
+    public int getTableID() {return table.getId();}
+
     public void setTable(Table table) {
         this.table = table;
     }

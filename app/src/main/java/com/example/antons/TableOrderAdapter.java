@@ -88,7 +88,7 @@ public class TableOrderAdapter extends RecyclerView.Adapter<TableOrderAdapter.Vi
     * Method for the function that handles the click on an item in the recyclerview.
     * */
     public interface OnTableClickListener{
-        void tableOnClick(String table, List<Order> orderList);
+        void tableOnClick(int tableID, List<OrderApi> orderList);
     }
 
     public void setOnTableClickListener(OnTableClickListener onClickListener){
@@ -105,9 +105,9 @@ public class TableOrderAdapter extends RecyclerView.Adapter<TableOrderAdapter.Vi
     /*
     * Removes orders with a specific type from a table.
     * */
-    public void removeOrder(String table, String type){
+    public void removeOrder(int tableID, String type){
         for(TableOrder tableOrder: orderList){
-            tableOrder.getOrderList().removeIf(item -> (item.getTable().equals(table) && item.getType().equals(type)));
+            tableOrder.getOrderList().removeIf(item -> (item.getOrder().getTableID() == tableID && item.getTagName().equals(type)));
         }
         orderList.removeIf(TableOrder::isEmpty);
 

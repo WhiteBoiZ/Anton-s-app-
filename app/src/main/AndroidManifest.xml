@@ -28,10 +28,6 @@
             <!-- Intent filters if necessary -->
         </activity>
 
-        <activity android:name=".Bord2Activity">
-
-        </activity>
-
         <activity android:name=".KitchenActivity">
 
         </activity>

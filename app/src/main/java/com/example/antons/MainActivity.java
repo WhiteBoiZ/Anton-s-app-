@@ -99,16 +99,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }); */
 
-        /*apiService.fetchOrders(new Callback<List<OrderApi>>() {
+        apiService.fetchOrders(new Callback<List<OrderApi>>() {
             @Override
             public void onResponse(Call<List<OrderApi>> call, Response<List<OrderApi>> response) {
                 if (response.isSuccessful()) {
                     Log.d("ApiService", "API request successful: " + response);
                     List<OrderApi> orderList = response.body();
                     System.out.println(orderList);
-                    for (OrderApi order : orderList) {
-                        System.out.println(order.getDish().getTitle());
-                    }
                     // Handle the response data here
                 } else {
                     Log.e("ApiService", "API request failed: " + response.message());
@@ -120,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("ApiService", "API request failed: " + t.getMessage());
                 // Handle the failure here
             }
-        }); */
+        });
 
         golvButton.setOnClickListener(new View.OnClickListener() {
             @Override

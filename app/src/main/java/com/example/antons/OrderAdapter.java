@@ -16,10 +16,10 @@ import java.util.List;
  * */
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
 
-    private List<Order> tableOrders;
+    private List<OrderApi> tableOrders;
 
 
-    public OrderAdapter(List<Order> tableOrders){
+    public OrderAdapter(List<OrderApi> tableOrders){
         this.tableOrders = tableOrders;
     }
 
@@ -93,10 +93,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
      * */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Order order = tableOrders.get(position);
-        holder.time.setText(order.getTime());
-        holder.order.setText(order.getOrder());
-        //holder.type.setText(order.getType());
+        OrderApi order = tableOrders.get(position);
+        holder.time.setText(order.getOrder().getTime());
+        holder.order.setText(order.getDish().getTitle());
     }
 
     @Override
@@ -104,7 +103,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         return tableOrders.size();
     }
 
-    public Order getItem(int position){
+    public OrderApi getItem(int position){
         return this.tableOrders.get(position);
     }
 
@@ -116,12 +115,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         this.notifyItemRangeRemoved(0,getItemCount());
     }
 
-    public void add(Order order){
+    public void add(OrderApi order){
         this.tableOrders.add(order);
         this.notifyItemInserted(tableOrders.size()-1);
     }
 
-    public List<Order> getTableOrders() {
+    public List<OrderApi> getTableOrders() {
         return tableOrders;
     }
 

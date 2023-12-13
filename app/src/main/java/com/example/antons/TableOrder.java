@@ -3,15 +3,14 @@ package com.example.antons;
 import java.util.List;
 
 public class TableOrder {
-    private List<Order> orderList;
-    
-    private String table;
+    private List<OrderApi> orderList;
+    private int tableID;
 
     private String time;
 
-    public TableOrder(List<Order> orderList, String table, String time) {
+    public TableOrder(List<OrderApi> orderList, int tableID, String time) {
         this.orderList = orderList;
-        this.table = table;
+        this.tableID = tableID;
         this.time = time;
     }
 
@@ -20,11 +19,11 @@ public class TableOrder {
         return this.time;
     }
 
-    public String getTable(){
-        return this.table;
+    public int getTable(){
+        return this.tableID;
     }
 
-    public List<Order> getOrderList(){
+    public List<OrderApi> getOrderList(){
         return this.orderList;
     }
 

@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiService {
 
     // Ersätt IP_ADDRESS i BASE_URL med egen IP här och i network_security_config.xml
-    private static final String BASE_URL = "http://10.82.244.199:8080/Antons-Skafferi-Webb-1.0-SNAPSHOT/";
+    private static final String BASE_URL = "http://192.168.0.151:8080/Antons-Skafferi-Webb-1.0-SNAPSHOT/";
     private static ApiService instance;
     private final MyApi myApi;
 
