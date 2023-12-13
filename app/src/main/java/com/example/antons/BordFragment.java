@@ -9,13 +9,21 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrder{
@@ -27,6 +35,8 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
     private DishAdapter starterAdapter;
     private DishAdapter mainCourseAdapter;
     private DishAdapter dessertAdapter;
+
+    private int tableId;
 
     public static BordFragment newInstance(String table){
         BordFragment bordFragment = new BordFragment();
@@ -63,7 +73,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
         Button addButton = view.findViewById(R.id.addbutton);
         //TextView fragmentID = view.findViewById(R.id.fragmentID);
         //fragmentID.setText(this.getArguments().getString("tableID"));
-
+        this.tableId = Integer.parseInt(this.getArguments().getString("tableID"));
         Button addStarter = view.findViewById(R.id.addStarter);
         Button addMainCourse = view.findViewById(R.id.addMainCourse);
         Button addDessert = view.findViewById(R.id.addDessert);
@@ -71,7 +81,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
         addStarter.setOnClickListener(this::onClick);
         addMainCourse.setOnClickListener(this::onClick);
         addDessert.setOnClickListener(this::onClick);
-
+        addButton.setOnClickListener(this::createOrder);
 
 
     }
@@ -105,6 +115,70 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
                     .addToBackStack(null)
                     .commit();
         }
+    }
+
+    private void postDishes(int orderId, List<Dish> dishList) {
+        ApiService apiService = ApiService.getInstance();
+        MyApi myApi = apiService.getMyApi();
+        for (Dish dish : dishList) {
+            Call<Void> dishCall = myApi.addDishToOrder(dish.getType().getId(), orderId, dish.getId(), "comment");
+            dishCall.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        // Handle successful response
+                        Log.d("ApiService", "POST dish request successful");
+                    } else {
+                        // Handle unsuccessful response
+                        Log.e("ApiService", "POST dish request failed: " + response.message());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    // Handle failure
+                    Log.e("ApiService", "POST dish request failed: " + t.getMessage());
+                }
+            });
+        }
+
+    }
+
+    public void createOrder(View view) {
+        ApiService apiService = ApiService.getInstance();
+        MyApi myApi = apiService.getMyApi();
+        String time = "15:32:00";
+        String date = "datum";
+        Call<OrderTest> call = myApi.addOrder(date, time, "comment", tableId);
+
+        call.enqueue(new Callback<OrderTest>() {
+            @Override
+            public void onResponse(Call<OrderTest> call, Response<OrderTest> response) {
+                if (response.isSuccessful()) {
+                    // Handle successful response
+                    Log.d("ApiService", "Create order POST request successful");
+                    int orderId = response.body().getId();
+                    if(starterAdapter != null) {
+                        postDishes(orderId, starterAdapter.dishList);
+                    }
+                    if(mainCourseAdapter != null) {
+                        postDishes(orderId, mainCourseAdapter.dishList);
+                    }
+                    if(dessertAdapter != null) {
+                        postDishes(orderId, dessertAdapter.dishList);
+                    }
+                } else {
+                    // Handle unsuccessful response
+                    Log.e("ApiService", "Create order POST request failed: " + response.message());
+                }
+            }
+            @Override
+            public void onFailure(Call<OrderTest> call, Throwable t) {
+                // Handle failure
+                Log.e("ApiService", "Create order POST request failed: " + t.getMessage());
+            }
+        });
+
     }
 
     //Gets the selected data from "AddOrderFragment".

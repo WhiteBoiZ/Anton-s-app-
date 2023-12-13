@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         int orderId = 20;
 
-        Call<Void> call = myApi.deleteOrder(orderId);
+        /*Call<Void> call = myApi.deleteOrder(orderId);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 // Handle failure
                 Log.e("ApiConnector", "DELETE request failed: " + t.getMessage());
             }
-        });
+        }); */
 
        /* Call<OrderTest> call = myApi.addOrder(date, time, comment, tableId);
         call.enqueue(new Callback<OrderTest>() {
