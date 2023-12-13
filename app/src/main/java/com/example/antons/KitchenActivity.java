@@ -35,6 +35,55 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
 
     private List<OrderApi> orderList;
 
+    private void deleteDish(int id, int orderId, int dishId) {
+        ApiService apiService = ApiService.getInstance();
+        MyApi myApi = apiService.getMyApi();
+
+        Call<Void> call = myApi.deleteDishFromOrder(id, orderId, dishId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Handle successful response (resource deleted)
+                    Log.d("ApiService", "DELETE dish request successful");
+                } else {
+                    // Handle unsuccessful response
+                    Log.e("ApiService", "DELETE dish request failed: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+                Log.e("ApiService", "DELETE dish request failed: " + t.getMessage());
+            }
+        });
+    }
+
+    private void deleteOrder(int orderId) {
+        ApiService apiService = ApiService.getInstance();
+        MyApi myApi = apiService.getMyApi();
+        Call<Void> call = myApi.deleteOrder(orderId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Handle successful response (resource deleted)
+                    Log.d("ApiService", "DELETE request successful");
+                } else {
+                    // Handle unsuccessful response
+                    Log.e("ApiService", "DELETE request failed: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+                Log.e("ApiService", "DELETE request failed: " + t.getMessage());
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
