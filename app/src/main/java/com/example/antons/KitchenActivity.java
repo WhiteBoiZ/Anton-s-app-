@@ -42,17 +42,17 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     // Handle successful response (resource deleted)
-                    Log.d("ApiConnector", "DELETE dish request successful");
+                    Log.d("ApiService", "DELETE dish request successful");
                 } else {
                     // Handle unsuccessful response
-                    Log.e("ApiConnector", "DELETE dish request failed: " + response.message());
+                    Log.e("ApiService", "DELETE dish request failed: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 // Handle failure
-                Log.e("ApiConnector", "DELETE dish request failed: " + t.getMessage());
+                Log.e("ApiService", "DELETE dish request failed: " + t.getMessage());
             }
         });
     }
@@ -66,17 +66,17 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     // Handle successful response (resource deleted)
-                    Log.d("ApiConnector", "DELETE request successful");
+                    Log.d("ApiService", "DELETE request successful");
                 } else {
                     // Handle unsuccessful response
-                    Log.e("ApiConnector", "DELETE request failed: " + response.message());
+                    Log.e("ApiService", "DELETE request failed: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 // Handle failure
-                Log.e("ApiConnector", "DELETE request failed: " + t.getMessage());
+                Log.e("ApiService", "DELETE request failed: " + t.getMessage());
             }
         });
     }
