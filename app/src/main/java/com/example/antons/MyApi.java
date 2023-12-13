@@ -16,7 +16,7 @@ public interface MyApi {
     @GET("api/alacarte/all")
     Call<List<Dish>> getDishes();
 
-    @GET("api/bestallning/rattinstans/all")
+    @GET("api/bestallning/all/withrattinstans")
     Call<List<OrderApi>> getOrders();
 
 
