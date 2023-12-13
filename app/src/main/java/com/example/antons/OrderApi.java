@@ -34,10 +34,10 @@ public class OrderApi {
                     '}';
         }
     }
-    @SerializedName("alacarteId")
+    @SerializedName("alacarte")
     private Dish dish;
 
-    @SerializedName("bestallningId")
+    @SerializedName("bestallning")
     private OrderTest order;
 
     @SerializedName("id")
@@ -46,7 +46,7 @@ public class OrderApi {
     @SerializedName("rattPreferenser")
     private String dishPreference;
 
-    @SerializedName("tagId")
+    @SerializedName("tag")
     private Tag tag;
 
     public Dish getDish() {

@@ -1,6 +1,7 @@
 package com.example.antons;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class KitchenActivity extends AppCompatActivity implements TableOrderAdapter.OnTableClickListener {
@@ -27,6 +31,55 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
     private RecyclerView starterView;
     private RecyclerView mainCourseView;
     private RecyclerView dessertView;
+
+    private void deleteDish(int id, int orderId, int dishId) {
+        ApiService apiService = ApiService.getInstance();
+        MyApi myApi = apiService.getMyApi();
+
+        Call<Void> call = myApi.deleteDishFromOrder(id, orderId, dishId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Handle successful response (resource deleted)
+                    Log.d("ApiConnector", "DELETE dish request successful");
+                } else {
+                    // Handle unsuccessful response
+                    Log.e("ApiConnector", "DELETE dish request failed: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+                Log.e("ApiConnector", "DELETE dish request failed: " + t.getMessage());
+            }
+        });
+    }
+
+    private void deleteOrder(int orderId) {
+        ApiService apiService = ApiService.getInstance();
+        MyApi myApi = apiService.getMyApi();
+        Call<Void> call = myApi.deleteOrder(orderId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Handle successful response (resource deleted)
+                    Log.d("ApiConnector", "DELETE request successful");
+                } else {
+                    // Handle unsuccessful response
+                    Log.e("ApiConnector", "DELETE request failed: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+                Log.e("ApiConnector", "DELETE request failed: " + t.getMessage());
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
