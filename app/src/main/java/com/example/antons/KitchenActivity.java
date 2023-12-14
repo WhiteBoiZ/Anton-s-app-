@@ -165,7 +165,7 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
                 if(starterOrderAdapter.getItemCount() != 0){
                     OrderApi order = starterOrderAdapter.getItem(0);
                     starterOrderAdapter.clear();
-                    System.out.println(order.getTagID());
+
                     setDishesAsFinished(order.getOrder().getId(), order.getTagID());
                     starterView.setLayoutManager(null);
                     starterView.setAdapter(null);
