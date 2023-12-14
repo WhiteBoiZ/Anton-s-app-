@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class OrderApi {
 
+
+
     private static class Tag {
         @SerializedName("id")
         private int id;
@@ -100,6 +102,7 @@ public class OrderApi {
         this.tag = tag;
     }
 
+
     @Override
     public String toString() {
         return "OrderApi{" +
@@ -108,9 +111,10 @@ public class OrderApi {
                 ", id=" + id +
                 ", dishPreference='" + dishPreference + '\'' +
                 ", tag=" + tag +
+                ", startDone=" + startDone +
+                ", mainDone=" + mainDone +
+                ", dessertDone=" + dessertDone +
                 '}';
     }
-
-
 
 }
