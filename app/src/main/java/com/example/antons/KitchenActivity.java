@@ -1,6 +1,5 @@
 package com.example.antons;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -88,27 +86,39 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
         });
     }
 
-    private void setDessertsAsFinished(int orderId) {
+    private void setDishesAsFinished(int orderId, int typeId) {
 
         ApiService apiService = ApiService.getInstance();
         MyApi myApi = apiService.getMyApi();
-        Call<Void> call = myApi.markDessertsAsFinished(orderId, true);
+        Call<Void> call = null;
+        switch (typeId) {
+            case 1:
+                call = myApi.markStartersAsFinished(orderId, true);
+                break;
+            case 2:
+                call = myApi.markMainsAsFinished(orderId, true);
+                break;
+            case 3:
+                call = myApi.markDessertsAsFinished(orderId, true);
+                break;
+
+        }
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     // Handle successful response (resource deleted)
-                    Log.d("ApiService", "PATCH request successful");
+                    Log.d("ApiService", "POST request successful");
                 } else {
                     // Handle unsuccessful response
-                    Log.e("ApiService", "PATCH request failed: " + response.message());
+                    Log.e("ApiService", "POST 1 request failed: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 // Handle failure
-                Log.e("ApiService", "PATCH request failed: " + t.getMessage());
+                Log.e("ApiService", "POST request failed: " + t.getMessage());
             }
         });
     }
@@ -155,6 +165,8 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
                 if(starterOrderAdapter.getItemCount() != 0){
                     OrderApi order = starterOrderAdapter.getItem(0);
                     starterOrderAdapter.clear();
+                    System.out.println(order.getTagID());
+                    setDishesAsFinished(order.getOrder().getId(), order.getTagID());
                     starterView.setLayoutManager(null);
                     starterView.setAdapter(null);
                     tableOrderAdapter.removeOrder(order.getOrder().getTableID(), order.getTagID(), order.getOrder().getTime());
@@ -177,6 +189,9 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
                 if(mainCourseOrderAdapter.getItemCount() != 0){
                     OrderApi order = mainCourseOrderAdapter.getItem(0);
                     mainCourseOrderAdapter.clear();
+                    System.out.println(order.getTagID());
+
+                    setDishesAsFinished(order.getOrder().getId(), order.getTagID());
                     mainCourseView.setLayoutManager(null);
                     mainCourseView.setAdapter(null);
                     tableOrderAdapter.removeOrder(order.getOrder().getTableID(), order.getTagID(), order.getOrder().getTime());
@@ -201,7 +216,8 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
                 if(dessertOrderAdapter.getItemCount() != 0){
                     OrderApi order = dessertOrderAdapter.getItem(0);
                     dessertOrderAdapter.clear();
-                    setDessertsAsFinished(order.getId());
+                    System.out.println(order.getTagID());
+                    setDishesAsFinished(order.getOrder().getId(), order.getTagID());
                     dessertView.setLayoutManager(null);
                     dessertView.setAdapter(null);
                     tableOrderAdapter.removeOrder(order.getOrder().getTableID(), order.getTagID(), order.getOrder().getTime());

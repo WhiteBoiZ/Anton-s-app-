@@ -37,19 +37,19 @@ public interface MyApi {
             @Query("ratt_preferenser") String dishPreference
     );
 
-    @PATCH("api/bestallning")
+    @POST("api/bestallning/forrattKlar")
     Call<Void> markStartersAsFinished(
             @Query("id") int id,
-            @Query("forratKlar") boolean starterDone
+            @Query("forrattKlar") boolean starterDone
     );
 
-    @PATCH("api/bestallning")
+    @POST("api/bestallning/varmrattKlar")
     Call<Void> markMainsAsFinished(
             @Query("id") int id,
             @Query("varmrattKlar") boolean mainDone
     );
 
-    @PATCH("api/bestallning")
+    @POST("api/bestallning/efterrattKlar")
     Call<Void> markDessertsAsFinished(
             @Query("id") int id,
             @Query("efterrattKlar") boolean dessertDone
