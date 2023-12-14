@@ -1,5 +1,6 @@
 package com.example.antons;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,12 +32,12 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
     private RecyclerView mainCourseView;
     private RecyclerView dessertView;
 
-    private List<OrderApi> orderList;
+    //private List<OrderApi> orderList;
 
     private List<OrderTemp> orderApiList;
 
     private Handler handler = new Handler();
-    private final int delayMillis = 10000;
+    private final int delayMillis = 1000;
 
     private void deleteDish(int id, int orderId, int dishId) {
         ApiService apiService = ApiService.getInstance();
@@ -165,7 +167,7 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
                 if(starterOrderAdapter.getItemCount() != 0){
                     OrderApi order = starterOrderAdapter.getItem(0);
                     starterOrderAdapter.clear();
-
+                    System.out.println(order.getTagID());
                     setDishesAsFinished(order.getOrder().getId(), order.getTagID());
                     starterView.setLayoutManager(null);
                     starterView.setAdapter(null);
@@ -233,7 +235,6 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
             }
         });
 
-        fetchOrders();
 
     }
 
@@ -266,7 +267,9 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
             if (!orderApiList.isEmpty()) {
                 List<TableOrder> tableOrderList = new ArrayList<>();
                 for (OrderTemp orderTemp : orderApiList) {
-                    tableOrderList.add(new TableOrder(orderTemp.getSelectedList(), orderTemp.getOrderInfo().getTableID(), orderTemp.getOrderInfo().getTime()));
+                    if(!orderTemp.isDone()) {
+                        tableOrderList.add(new TableOrder(orderTemp.getSelectedList(), orderTemp.getOrderInfo().getTableID(), orderTemp.getOrderInfo().getTime()));
+                    }
                 }
                 tableOrderAdapter = new TableOrderAdapter(tableOrderList);
                 tableOrderAdapter.setOnTableClickListener(this);
@@ -322,13 +325,19 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
                 System.out.println(orderList.get(i).getId());
                 switch(orderList.get(i).getTagID()){
                     case 1:
-                        starterList.add(orderList.get(i));
+                        if(!orderList.get(i).getOrder().isStartDone()){
+                            starterList.add(orderList.get(i));
+                        }
                         break;
                     case 2:
-                        mainCourseList.add(orderList.get(i));
+                        if(!orderList.get(i).getOrder().isMainDone()) {
+                            mainCourseList.add(orderList.get(i));
+                        }
                         break;
                     case 3:
-                        dessertList.add(orderList.get(i));
+                        if(!orderList.get(i).getOrder().isDessertDone()) {
+                            dessertList.add(orderList.get(i));
+                        }
                         break;
                 }
             }

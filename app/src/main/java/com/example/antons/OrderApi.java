@@ -51,12 +51,11 @@ public class OrderApi {
     @SerializedName("tag")
     private Tag tag;
 
-    @SerializedName("forratKlar")
-    private boolean startDone;
-    @SerializedName("varmrattKlar")
-    private boolean mainDone;
-    @SerializedName("efterrattKlar")
-    private boolean dessertDone;
+
+
+
+
+
 
     public Dish getDish() {
         return dish;
@@ -111,9 +110,6 @@ public class OrderApi {
                 ", id=" + id +
                 ", dishPreference='" + dishPreference + '\'' +
                 ", tag=" + tag +
-                ", startDone=" + startDone +
-                ", mainDone=" + mainDone +
-                ", dessertDone=" + dessertDone +
                 '}';
     }
 
