@@ -198,6 +198,9 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
     }
 
 
+    /*
+     * Attach the fetched orders to the recyclerview.
+     * */
     private void setOrderList(List<OrderTemp> orderApiList){
         if(orderApiList != null) {
             if (!orderApiList.isEmpty()) {
@@ -213,6 +216,9 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
         }
     }
 
+    /*
+    * Fetches orders from the API
+    * */
     private void fetchOrders(){
         ApiService apiService = ApiService.getInstance();
 
@@ -256,10 +262,10 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
                 System.out.println(orderList.get(i).getId());
                 switch(orderList.get(i).getTagID()){
                     case 1:
-                        mainCourseList.add(orderList.get(i));
+                        starterList.add(orderList.get(i));
                         break;
                     case 2:
-                        starterList.add(orderList.get(i));
+                        mainCourseList.add(orderList.get(i));
                         break;
                     case 3:
                         dessertList.add(orderList.get(i));
