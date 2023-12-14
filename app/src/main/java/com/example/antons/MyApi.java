@@ -46,13 +46,13 @@ public interface MyApi {
     @PATCH("api/bestallning")
     Call<Void> markMainsAsFinished(
             @Query("id") int id,
-            @Query("varmrattKlar") boolean starterDone
+            @Query("varmrattKlar") boolean mainDone
     );
 
     @PATCH("api/bestallning")
     Call<Void> markDessertsAsFinished(
             @Query("id") int id,
-            @Query("efterrattKlar") boolean starterDone
+            @Query("efterrattKlar") boolean dessertDone
     );
 
     @DELETE("api/bestallning/delete/{id}")
