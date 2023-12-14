@@ -40,6 +40,16 @@ public class GolvActivity extends AppCompatActivity implements View.OnClickListe
         Button tableButton8 = findViewById(R.id.bord8Button);
         tableButton8.setOnClickListener(this);
 
+        Button backButton = findViewById(R.id.backButton);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // This will close the current activity and take you back to the previous activity
+                finish();
+            }
+        });
+
 
 
     }
