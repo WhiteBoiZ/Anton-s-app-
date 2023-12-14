@@ -4,9 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="65dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="65dp"
     tools:context=".BordFragment">
 
 
@@ -21,19 +21,23 @@
 
     <LinearLayout
         android:id="@+id/column2"
-        android:layout_width="333dp"
-        android:layout_height="887dp"
+        android:layout_width="334dp"
+        android:layout_height="673dp"
         android:background="@drawable/scroll_box"
         android:orientation="vertical"
-        app:layout_constraintEnd_toStartOf="@+id/columnDryck"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/column3"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
 
         <LinearLayout
+            android:id="@+id/starterContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/starterContainer">
+            android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/starterText"
                 android:layout_width="wrap_content"
@@ -48,7 +52,6 @@
                 android:layout_height="50dp"
                 android:text="Välj förrätter" />
         </LinearLayout>
-
 
         <ScrollView
             android:id="@+id/scrollView2"
@@ -72,12 +75,10 @@
         </ScrollView>
 
 
-
-
         <LinearLayout
+            android:id="@+id/mainCourseContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/mainCourseContainer">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/mainCourseText"
@@ -119,9 +120,9 @@
 
 
         <LinearLayout
+            android:id="@+id/dessertContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/dessertContainer">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/dessertText"
@@ -130,13 +131,13 @@
                 android:layout_margin="10dp"
                 android:text="Dessert"
                 android:textSize="30sp" />
+
             <Button
                 android:id="@+id/addDessert"
                 android:layout_width="140dp"
                 android:layout_height="50dp"
                 android:text="Välj efterrätt" />
         </LinearLayout>
-
 
 
         <ScrollView
@@ -164,28 +165,31 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/columnDryck"
-        android:layout_width="308dp"
-        android:layout_height="792dp"
-
+        android:id="@+id/column3"
+        android:layout_width="310dp"
+        android:layout_height="678dp"
         android:background="@drawable/scroll_box"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/addbutton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
 
-        <TextView
-            android:id="@+id/drinkText"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/buttonGolvStarterText"
+            android:layout_width="161dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Dryck"
-            android:textSize="30sp" />
+            android:text="Förrätter"
+            android:textSize="20sp" />
+
 
         <ScrollView
-            android:id="@+id/scrollViewDryck"
-            android:layout_width="263dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/scrollView5"
+            android:layout_width="300dp"
+            android:layout_height="120dp"
             android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.91"
@@ -193,7 +197,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/DryckOrders"
+                android:id="@+id/golvStarterOrders"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -202,6 +206,69 @@
 
 
         </ScrollView>
+
+
+        <Button
+            android:id="@+id/buttonGolvMainCourseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Varmrätter"
+            android:textSize="20sp" />
+
+
+        <ScrollView
+            android:id="@+id/scrollView6"
+            android:layout_width="300dp"
+            android:layout_height="120dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.91"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/golvMainCourseOrders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+
+        </ScrollView>
+
+
+        <Button
+            android:id="@+id/buttonGolvDessertText"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dessert"
+            android:textSize="20sp" />
+
+
+        <ScrollView
+            android:id="@+id/scrollView7"
+            android:layout_width="300dp"
+            android:layout_height="120dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.91"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/golvDessertOrders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+
+        </ScrollView>
+
+
     </LinearLayout>
 
 
