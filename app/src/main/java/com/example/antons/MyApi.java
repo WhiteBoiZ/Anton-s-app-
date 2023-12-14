@@ -7,6 +7,7 @@ import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -34,6 +35,24 @@ public interface MyApi {
             @Query("bestallningId") int orderId,
             @Query("alacarteId") int alacarteId,
             @Query("ratt_preferenser") String dishPreference
+    );
+
+    @PATCH("api/bestallning")
+    Call<Void> markStartersAsFinished(
+            @Query("id") int id,
+            @Query("forratKlar") boolean starterDone
+    );
+
+    @PATCH("api/bestallning")
+    Call<Void> markMainsAsFinished(
+            @Query("id") int id,
+            @Query("varmrattKlar") boolean starterDone
+    );
+
+    @PATCH("api/bestallning")
+    Call<Void> markDessertsAsFinished(
+            @Query("id") int id,
+            @Query("efterrattKlar") boolean starterDone
     );
 
     @DELETE("api/bestallning/delete/{id}")

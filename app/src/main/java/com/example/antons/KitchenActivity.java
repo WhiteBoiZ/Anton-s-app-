@@ -176,6 +176,7 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
                 if(dessertOrderAdapter.getItemCount() != 0){
                     OrderApi order = dessertOrderAdapter.getItem(0);
                     dessertOrderAdapter.clear();
+
                     dessertView.setLayoutManager(null);
                     dessertView.setAdapter(null);
                     tableOrderAdapter.removeOrder(order.getOrder().getTableID(), order.getTagID(), order.getOrder().getTime());
