@@ -2,6 +2,7 @@ package com.example.antons;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,9 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class KitchenActivity extends AppCompatActivity implements TableOrderAdapter.OnTableClickListener {
-
     private TableOrderAdapter tableOrderAdapter;
 
     private OrderAdapter starterOrderAdapter;
@@ -36,6 +35,9 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
     private List<OrderApi> orderList;
 
     private List<OrderTemp> orderApiList;
+
+    private Handler handler = new Handler();
+    private final int delayMillis = 1000;
 
     private void deleteDish(int id, int orderId, int dishId) {
         ApiService apiService = ApiService.getInstance();
@@ -99,7 +101,7 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
         //selectedButton.setBackgroundResource(R.drawable.selected_button);
 
 ;
-
+        startFetchingData();
 
         orderView = findViewById(R.id.orderView);
 
@@ -191,6 +193,22 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
 
         fetchOrders();
 
+    }
+
+    private void startFetchingData() {
+        // Create a runnable to perform the data-fetching task
+        Runnable fetchDataRunnable = new Runnable() {
+            @Override
+            public void run() {
+                fetchOrders(); // Implement this method to fetch data from the API
+
+                // Schedule the next execution after the delay
+                handler.postDelayed(this, delayMillis);
+            }
+        };
+
+        // Post the runnable for the first time
+        handler.post(fetchDataRunnable);
     }
     @Override
     protected void onStart() {
@@ -295,6 +313,13 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
 
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        // Remove callbacks when the activity is destroyed to avoid memory leaks
+        handler.removeCallbacksAndMessages(null);
+        super.onDestroy();
     }
 
 
