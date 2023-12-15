@@ -1,7 +1,5 @@
 package com.example.antons;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalTime;
@@ -41,9 +38,15 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
     private DishAdapter mainCourseAdapter;
     private DishAdapter dessertAdapter;
 
+    private Button golvStarterViewTextButton;
+    private Button golvMainCourseViewTextButton;
+    private Button golvDessertViewTextButton;
+
     private List<OrderTemp> orderApiList;
     private Handler handler = new Handler();
     private final int delayMillis = 1000;
+
+    private Boolean toogledone = false;
 
 
     private int tableId;
@@ -91,6 +94,9 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
         golvDessertView.setLayoutManager(new LinearLayoutManager(getContext()));
         golvDessertView.setAdapter(golvDessertAdapter);
 
+        golvStarterViewTextButton = view.findViewById(R.id.buttonGolvStarterText);
+        golvMainCourseViewTextButton = view.findViewById(R.id.buttonGolvMainCourseText);
+        golvDessertViewTextButton = view.findViewById(R.id.buttonGolvDessertText);
 
         tableId = Integer.parseInt(getArguments().getString("tableID"));
         startFetchingData(); // Implement this method to fetch data for both columns
@@ -138,13 +144,22 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
                             for (OrderApi orderApi : tableOrder.getOrderList()) {
                                 switch (orderApi.getTagID()) {
                                     case 1:
-                                        starterList.add(orderApi);
+                                        if(orderApi.getOrder().isStartDone() ==true && toogledone == false){
+                                            golvStarterViewTextButton.setBackground(getResources().getDrawable(R.drawable.state_nejdone));
+                                            starterList.add(orderApi);
+                                        }
                                         break;
                                     case 2:
-                                        mainCourseList.add(orderApi);
+                                        if(!orderApi.getOrder().isMainDone()){
+                                            mainCourseList.add(orderApi);
+                                        }
+
                                         break;
                                     case 3:
-                                        dessertList.add(orderApi);
+                                        if(!orderApi.getOrder().isDessertDone()){
+                                            dessertList.add(orderApi);
+                                        }
+
                                         break;
                                 }
                             }
