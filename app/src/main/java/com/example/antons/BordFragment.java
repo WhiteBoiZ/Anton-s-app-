@@ -42,7 +42,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
 
     private List<OrderTemp> orderApiList;
     private Handler handler = new Handler();
-    private final int delayMillis = 10000;
+    private final int delayMillis = 1000;
 
 
     private int tableId;
@@ -92,7 +92,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
 
 
         tableId = Integer.parseInt(getArguments().getString("tableID"));
-        fetchDataForTable(tableId); // Implement this method to fetch data for both columns
+        startFetchingData(); // Implement this method to fetch data for both columns
         return view;
     }
 
@@ -257,6 +257,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
 
     }
 
+
     public void createOrder(View view) {
         ApiService apiService = ApiService.getInstance();
         MyApi myApi = apiService.getMyApi();
@@ -319,5 +320,19 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
         }
     }
 
+    private void startFetchingData() {
+        // Create a runnable to perform the data-fetching task
+        Runnable fetchDataRunnable = new Runnable() {
+            @Override
+            public void run() {
+                fetchDataForTable(tableId); // Implement this method to fetch data from the API
 
+                // Schedule the next execution after the delay
+                handler.postDelayed(this, delayMillis);
+            }
+        };
+
+        // Post the runnable for the first time
+        handler.post(fetchDataRunnable);
+    }
 }
