@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import org.threeten.bp.LocalTime;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.format.DateTimeFormatter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -38,7 +40,15 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
     private DishAdapter mainCourseAdapter;
     private DishAdapter dessertAdapter;
 
+    private List<OrderTemp> orderApiList;
+    private Handler handler = new Handler();
+    private final int delayMillis = 10000;
+
+
     private int tableId;
+
+    private RecyclerView golvStarterView, golvMainCourseView, golvDessertView;
+    private DishAdapter golvStarterAdapter, golvMainCourseAdapter, golvDessertAdapter;
 
     public static BordFragment newInstance(String table){
         BordFragment bordFragment = new BordFragment();
@@ -64,7 +74,87 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
         dessertView.setLayoutManager(new LinearLayoutManager(this.requireContext()));
         dessertView.setAdapter(dessertAdapter);
         System.out.println("View oncreate");
+
+        golvStarterView = view.findViewById(R.id.golvStarterOrders);
+        golvStarterAdapter = new DishAdapter(new ArrayList<>());
+        golvStarterView.setLayoutManager(new LinearLayoutManager(getContext()));
+        golvStarterView.setAdapter(golvStarterAdapter);
+
+        golvMainCourseView = view.findViewById(R.id.golvMainCourseOrders);
+        golvMainCourseAdapter = new DishAdapter(new ArrayList<>());
+        golvMainCourseView.setLayoutManager(new LinearLayoutManager(getContext()));
+        golvMainCourseView.setAdapter(golvMainCourseAdapter);
+
+        golvDessertView = view.findViewById(R.id.golvDessertOrders);
+        golvDessertAdapter = new DishAdapter(new ArrayList<>());
+        golvDessertView.setLayoutManager(new LinearLayoutManager(getContext()));
+        golvDessertView.setAdapter(golvDessertAdapter);
+
+        // Fetch and display data for the specific table (column 2 and 3)
+        tableId = Integer.parseInt(getArguments().getString("tableID"));
+        fetchDataForTable(tableId); // Implement this method to fetch data for both columns
         return view;
+    }
+
+    private void fetchDataForTable(int tableId) {
+        ApiService apiService = ApiService.getInstance();
+
+        apiService.fetchOrders(new Callback<List<OrderTemp>>() {
+            @Override
+            public void onResponse(Call<List<OrderTemp>> call, Response<List<OrderTemp>> response) {
+                if (response.isSuccessful()) {
+                    Log.d("ApiService", "API request successful: " + response);
+                    orderApiList = response.body();
+                    System.out.println(orderApiList);
+                    setOrderList(orderApiList);
+                } else {
+                    Log.e("ApiService", "API request failed: " + response.message());
+                    // Handle the error here
+                }            }
+
+            @Override
+            public void onFailure(Call<List<OrderTemp>> call, Throwable t) {
+                Log.e("ApiService", "API request failed: " + t.getMessage());
+                // Handle the failure here
+            }
+
+        });
+    }
+    private void setOrderList(List<OrderTemp> orderApiList){
+        if(orderApiList != null) {
+            if (!orderApiList.isEmpty()) {
+                List<TableOrder> tableOrderList = new ArrayList<>();
+                for (OrderTemp orderTemp : orderApiList) {
+                    tableOrderList.add(new TableOrder(orderTemp.getSelectedList(), orderTemp.getOrderInfo().getTableID(), orderTemp.getOrderInfo().getTime()));
+                }
+                for (TableOrder tableOrder : tableOrderList) {
+                    if (tableOrder.getTable() == tableId) {
+                            List<Dish> starterList = new ArrayList<>();
+                            List<Dish> mainCourseList = new ArrayList<>();
+                            List<Dish> dessertList = new ArrayList<>();
+                            for (OrderApi orderApi : tableOrder.getOrderList()) {
+                                switch (orderApi.getTagID()) {
+                                    case 1:
+                                        starterList.add(orderApi.getDish());
+                                        break;
+                                    case 2:
+                                        mainCourseList.add(orderApi.getDish());
+                                        break;
+                                    case 3:
+                                        dessertList.add(orderApi.getDish());
+                                        break;
+                                }
+                            }
+                            golvStarterAdapter = new DishAdapter(starterList);
+                            golvStarterView.setAdapter(golvStarterAdapter);
+                            golvMainCourseAdapter = new DishAdapter(mainCourseList);
+                            golvMainCourseView.setAdapter(golvMainCourseAdapter);
+                            golvDessertAdapter = new DishAdapter(dessertList);
+                            golvDessertView.setAdapter(golvDessertAdapter);
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -207,4 +297,6 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
             }
         }
     }
+
+
 }
