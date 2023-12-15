@@ -46,6 +46,40 @@ public class OrderTest {
     @SerializedName("bordId")
     private Table table;
 
+    @SerializedName("forrattKlar")
+    private boolean startDone;
+    @SerializedName("varmrattKlar")
+    private boolean mainDone;
+
+    @SerializedName("efterrattKlar")
+    private boolean dessertDone;
+
+    public boolean isStartDone() {
+        return startDone;
+    }
+
+    public void setStartDone(boolean startDone) {
+        this.startDone = startDone;
+    }
+
+    public boolean isMainDone() {
+        return mainDone;
+    }
+
+    public void setMainDone(boolean mainDone) {
+        this.mainDone = mainDone;
+    }
+
+    public boolean isDessertDone() {
+        return dessertDone;
+    }
+
+    public void setDessertDone(boolean dessertDone) {
+        this.dessertDone = dessertDone;
+    }
+
+
+
     public int getId() {
         return id;
     }
@@ -96,6 +130,9 @@ public class OrderTest {
                 ", time='" + time + '\'' +
                 ", comment='" + comment + '\'' +
                 ", table=" + table +
+                ", startDone=" + startDone +
+                ", mainDone=" + mainDone +
+                ", dessertDone=" + dessertDone +
                 '}';
     }
 

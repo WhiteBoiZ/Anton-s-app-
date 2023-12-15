@@ -14,6 +14,10 @@ public class OrderTemp {
         return orderInfo;
     }
 
+    public boolean isDone(){
+        return (this.orderInfo.isStartDone() && this.orderInfo.isMainDone() && this.orderInfo.isDessertDone());
+    }
+
     public void setOrderInfo(OrderTest orderInfo) {
         this.orderInfo = orderInfo;
     }

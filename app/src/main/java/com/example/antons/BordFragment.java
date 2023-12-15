@@ -1,5 +1,6 @@
 package com.example.antons;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -184,6 +185,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
 
         // Använda getView().findViewById inom ett fragment
         Button addButton = view.findViewById(R.id.addbutton);
+        Button backButton = view.findViewById(R.id.backButton);
         //TextView fragmentID = view.findViewById(R.id.fragmentID);
         //fragmentID.setText(this.getArguments().getString("tableID"));
         this.tableId = Integer.parseInt(this.getArguments().getString("tableID"));
@@ -195,6 +197,10 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
         addMainCourse.setOnClickListener(this::onClick);
         addDessert.setOnClickListener(this::onClick);
         addButton.setOnClickListener(this::createOrder);
+
+        backButton.setOnClickListener(v -> {
+            ((GolvActivity)getActivity()).goBack();
+        });
 
 
     }
@@ -277,13 +283,19 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
                     Log.d("ApiService", "Create order POST request successful");
                     int orderId = response.body().getId();
                     if(starterAdapter != null) {
-                        postDishes(orderId, starterAdapter.dishList);
+                        postDishes(orderId, starterAdapter.getSelectedDishes());
+                        starterAdapter.clear();
+                        starterView.setAdapter(starterAdapter);
                     }
                     if(mainCourseAdapter != null) {
-                        postDishes(orderId, mainCourseAdapter.dishList);
+                        postDishes(orderId, mainCourseAdapter.getSelectedDishes());
+                        mainCourseAdapter.clear();
+                        mainCourseView.setAdapter(mainCourseAdapter);
                     }
                     if(dessertAdapter != null) {
-                        postDishes(orderId, dessertAdapter.dishList);
+                        postDishes(orderId, dessertAdapter.getSelectedDishes());
+                        dessertAdapter.clear();
+                        dessertView.setAdapter(dessertAdapter);
                     }
                 } else {
                     // Handle unsuccessful response

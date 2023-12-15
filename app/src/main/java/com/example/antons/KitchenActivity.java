@@ -32,7 +32,7 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
     private RecyclerView mainCourseView;
     private RecyclerView dessertView;
 
-    private List<OrderApi> orderList;
+    //private List<OrderApi> orderList;
 
     private List<OrderTemp> orderApiList;
 
@@ -88,6 +88,43 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
         });
     }
 
+    private void setDishesAsFinished(int orderId, int typeId) {
+
+        ApiService apiService = ApiService.getInstance();
+        MyApi myApi = apiService.getMyApi();
+        Call<Void> call = null;
+        switch (typeId) {
+            case 1:
+                call = myApi.markStartersAsFinished(orderId, true);
+                break;
+            case 2:
+                call = myApi.markMainsAsFinished(orderId, true);
+                break;
+            case 3:
+                call = myApi.markDessertsAsFinished(orderId, true);
+                break;
+
+        }
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Handle successful response (resource deleted)
+                    Log.d("ApiService", "POST request successful");
+                } else {
+                    // Handle unsuccessful response
+                    Log.e("ApiService", "POST 1 request failed: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure
+                Log.e("ApiService", "POST request failed: " + t.getMessage());
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,6 +167,8 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
                 if(starterOrderAdapter.getItemCount() != 0){
                     OrderApi order = starterOrderAdapter.getItem(0);
                     starterOrderAdapter.clear();
+                    System.out.println(order.getTagID());
+                    setDishesAsFinished(order.getOrder().getId(), order.getTagID());
                     starterView.setLayoutManager(null);
                     starterView.setAdapter(null);
                     tableOrderAdapter.removeOrder(order.getOrder().getTableID(), order.getTagID(), order.getOrder().getTime());
@@ -152,6 +191,9 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
                 if(mainCourseOrderAdapter.getItemCount() != 0){
                     OrderApi order = mainCourseOrderAdapter.getItem(0);
                     mainCourseOrderAdapter.clear();
+                    System.out.println(order.getTagID());
+
+                    setDishesAsFinished(order.getOrder().getId(), order.getTagID());
                     mainCourseView.setLayoutManager(null);
                     mainCourseView.setAdapter(null);
                     tableOrderAdapter.removeOrder(order.getOrder().getTableID(), order.getTagID(), order.getOrder().getTime());
@@ -176,6 +218,8 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
                 if(dessertOrderAdapter.getItemCount() != 0){
                     OrderApi order = dessertOrderAdapter.getItem(0);
                     dessertOrderAdapter.clear();
+                    System.out.println(order.getTagID());
+                    setDishesAsFinished(order.getOrder().getId(), order.getTagID());
                     dessertView.setLayoutManager(null);
                     dessertView.setAdapter(null);
                     tableOrderAdapter.removeOrder(order.getOrder().getTableID(), order.getTagID(), order.getOrder().getTime());
@@ -191,7 +235,6 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
             }
         });
 
-        fetchOrders();
 
     }
 
@@ -216,6 +259,23 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
     }
 
 
+    private Boolean shouldBeAdded(OrderTemp orderTemp){
+        if(orderTemp.isDone()){
+            return false;
+        }
+        if(!orderTemp.getOrderInfo().isStartDone() && orderTemp.getSelectedList().stream().anyMatch(item -> item.getTagID() == 1)){
+            return true;
+        }
+        if(!orderTemp.getOrderInfo().isMainDone() && orderTemp.getSelectedList().stream().anyMatch(item -> item.getTagID() == 2)){
+            return true;
+        }
+        if(!orderTemp.getOrderInfo().isDessertDone() && orderTemp.getSelectedList().stream().anyMatch(item -> item.getTagID() == 3)){
+            return true;
+        }
+        return false;
+    }
+
+
     /*
      * Attach the fetched orders to the recyclerview.
      * */
@@ -224,7 +284,9 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
             if (!orderApiList.isEmpty()) {
                 List<TableOrder> tableOrderList = new ArrayList<>();
                 for (OrderTemp orderTemp : orderApiList) {
-                    tableOrderList.add(new TableOrder(orderTemp.getSelectedList(), orderTemp.getOrderInfo().getTableID(), orderTemp.getOrderInfo().getTime()));
+                    if(shouldBeAdded(orderTemp)) {
+                        tableOrderList.add(new TableOrder(orderTemp.getSelectedList(), orderTemp.getOrderInfo().getTableID(), orderTemp.getOrderInfo().getTime()));
+                    }
                 }
                 tableOrderAdapter = new TableOrderAdapter(tableOrderList);
                 tableOrderAdapter.setOnTableClickListener(this);
@@ -280,13 +342,19 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
                 System.out.println(orderList.get(i).getId());
                 switch(orderList.get(i).getTagID()){
                     case 1:
-                        starterList.add(orderList.get(i));
+                        if(!orderList.get(i).getOrder().isStartDone()){
+                            starterList.add(orderList.get(i));
+                        }
                         break;
                     case 2:
-                        mainCourseList.add(orderList.get(i));
+                        if(!orderList.get(i).getOrder().isMainDone()) {
+                            mainCourseList.add(orderList.get(i));
+                        }
                         break;
                     case 3:
-                        dessertList.add(orderList.get(i));
+                        if(!orderList.get(i).getOrder().isDessertDone()) {
+                            dessertList.add(orderList.get(i));
+                        }
                         break;
                 }
             }

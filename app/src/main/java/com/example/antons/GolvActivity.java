@@ -68,6 +68,7 @@ public class GolvActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view){
+        findViewById(R.id.backButton).setVisibility(View.GONE);
         if (view.getId() == R.id.bord1Button) {
             System.out.println("Clicked: " + view.getTag().toString());
             //System.out.println(getStackCount());
@@ -126,6 +127,10 @@ public class GolvActivity extends AppCompatActivity implements View.OnClickListe
             view.setBackgroundResource(R.drawable.selected_button);
             createFragment(view);
         }
+    }
+
+    public void goBack(){
+        finish();
     }
 
 

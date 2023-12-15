@@ -100,8 +100,9 @@ public class AddOrderFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Button finishOrderButton = view.findViewById(R.id.addToListButton);
+        Button backButton = view.findViewById(R.id.backButton);
         finishOrderButton.setOnClickListener(this::addToOrder);
-
+        backButton.setOnClickListener(view1 -> this.getParentFragmentManager().popBackStack());
 
         ApiService apiService = ApiService.getInstance();
         MyApi myApi = apiService.getMyApi();

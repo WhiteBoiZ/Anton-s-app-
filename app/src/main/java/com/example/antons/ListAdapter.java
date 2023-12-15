@@ -27,4 +27,7 @@ public class ListAdapter extends ArrayAdapter<Dish> {
 
         return view;
     }
+
 }
+
+

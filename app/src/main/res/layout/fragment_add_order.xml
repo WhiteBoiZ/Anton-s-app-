@@ -14,7 +14,7 @@
     <LinearLayout
         android:id="@+id/column2"
         android:layout_width="331dp"
-        android:layout_height="826dp"
+        android:layout_height="550dp"
 
         android:background="@drawable/scroll_box"
         android:orientation="vertical"
@@ -72,21 +72,6 @@
             android:text="Välj"
             />
 
-        <TextView
-            android:id="@+id/drinkText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="75sp"
-            android:text="Dryck"
-            android:textSize="30sp" />
-
-        <Button
-            android:id="@+id/drinkSelector"
-            android:layout_width="140dp"
-            android:layout_height="48dp"
-            android:text="Välj"
-            />
-
 
     </LinearLayout>
 
@@ -95,7 +80,7 @@
     <LinearLayout
         android:id="@+id/addPreOrder"
         android:layout_width="304dp"
-        android:layout_height="821dp"
+        android:layout_height="550dp"
         android:background="@drawable/scroll_box"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -103,7 +88,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.041">
+        app:layout_constraintVertical_bias="0">
 
 
         <TextView
@@ -140,12 +125,30 @@
     </LinearLayout>
 
 
-    <Button
-        android:id="@+id/addToListButton"
+    <LinearLayout
+        android:id="@+id/buttonContainer"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:text="Slutför beställning"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0">
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="310dp"
+            android:layout_height="100dp"
+            android:text="Tillbaka"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+        <Button
+            android:id="@+id/addToListButton"
+            android:layout_width="310dp"
+            android:layout_height="100dp"
+            android:text="Lägg till"
+            app:layout_constraintStart_toStartOf="@+id/backButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
