@@ -259,6 +259,23 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
     }
 
 
+    private Boolean shouldBeAdded(OrderTemp orderTemp){
+        if(orderTemp.isDone()){
+            return false;
+        }
+        if(!orderTemp.getOrderInfo().isStartDone() && orderTemp.getSelectedList().stream().anyMatch(item -> item.getTagID() == 1)){
+            return true;
+        }
+        if(!orderTemp.getOrderInfo().isMainDone() && orderTemp.getSelectedList().stream().anyMatch(item -> item.getTagID() == 2)){
+            return true;
+        }
+        if(!orderTemp.getOrderInfo().isDessertDone() && orderTemp.getSelectedList().stream().anyMatch(item -> item.getTagID() == 3)){
+            return true;
+        }
+        return false;
+    }
+
+
     /*
      * Attach the fetched orders to the recyclerview.
      * */
@@ -267,7 +284,7 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
             if (!orderApiList.isEmpty()) {
                 List<TableOrder> tableOrderList = new ArrayList<>();
                 for (OrderTemp orderTemp : orderApiList) {
-                    if(!orderTemp.isDone()) {
+                    if(shouldBeAdded(orderTemp)) {
                         tableOrderList.add(new TableOrder(orderTemp.getSelectedList(), orderTemp.getOrderInfo().getTableID(), orderTemp.getOrderInfo().getTime()));
                     }
                 }

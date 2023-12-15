@@ -32,13 +32,13 @@
 
     <Button
         android:id="@+id/backButton"
-        android:layout_width="185dp"
-        android:layout_height="108dp"
+        android:layout_width="400dp"
+        android:layout_height="65dp"
         android:layout_marginEnd="536dp"
         android:layout_marginBottom="44dp"
         android:text="Tillbaka"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 

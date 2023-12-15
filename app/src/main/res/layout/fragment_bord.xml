@@ -10,13 +10,7 @@
     tools:context=".BordFragment">
 
 
-    <Button
-        android:id="@+id/addbutton"
-        android:layout_width="303dp"
-        android:layout_height="100dp"
-        android:text="Lägg till"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+
 
 
     <LinearLayout
@@ -167,10 +161,10 @@
     <LinearLayout
         android:id="@+id/column3"
         android:layout_width="310dp"
-        android:layout_height="678dp"
+        android:layout_height="673dp"
         android:background="@drawable/scroll_box"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/addbutton"
+        app:layout_constraintBottom_toTopOf="@+id/buttonContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -268,6 +262,32 @@
 
         </ScrollView>
 
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0">
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="310dp"
+            android:layout_height="100dp"
+            android:text="Tillbaka"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+        <Button
+            android:id="@+id/addbutton"
+            android:layout_width="310dp"
+            android:layout_height="100dp"
+            android:text="Lägg till"
+            app:layout_constraintStart_toStartOf="@+id/backButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </LinearLayout>
 

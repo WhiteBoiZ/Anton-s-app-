@@ -14,7 +14,7 @@ import java.util.List;
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder>{
 
 
-    List<Dish> dishList;
+    private List<Dish> dishList;
 
     public DishAdapter(){this.dishList = new ArrayList<Dish>();};
 
@@ -83,6 +83,11 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder>{
 
     public List<Dish> getSelectedDishes(){
         return this.dishList;
+    }
+
+    public void clear(){
+        this.dishList.clear();
+        notifyItemRangeRemoved(0,dishList.size()-1);
     }
 
 }
