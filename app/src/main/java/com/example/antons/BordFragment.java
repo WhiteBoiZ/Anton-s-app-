@@ -48,7 +48,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
     private int tableId;
 
     private RecyclerView golvStarterView, golvMainCourseView, golvDessertView;
-    private DishAdapter golvStarterAdapter, golvMainCourseAdapter, golvDessertAdapter;
+    private OrderAdapter golvStarterAdapter, golvMainCourseAdapter, golvDessertAdapter;
 
     public static BordFragment newInstance(String table){
         BordFragment bordFragment = new BordFragment();
@@ -76,17 +76,17 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
         System.out.println("View oncreate");
 
         golvStarterView = view.findViewById(R.id.golvStarterOrders);
-        golvStarterAdapter = new DishAdapter(new ArrayList<>());
+        golvStarterAdapter = new OrderAdapter(new ArrayList<>());
         golvStarterView.setLayoutManager(new LinearLayoutManager(getContext()));
         golvStarterView.setAdapter(golvStarterAdapter);
 
         golvMainCourseView = view.findViewById(R.id.golvMainCourseOrders);
-        golvMainCourseAdapter = new DishAdapter(new ArrayList<>());
+        golvMainCourseAdapter = new OrderAdapter(new ArrayList<>());
         golvMainCourseView.setLayoutManager(new LinearLayoutManager(getContext()));
         golvMainCourseView.setAdapter(golvMainCourseAdapter);
 
         golvDessertView = view.findViewById(R.id.golvDessertOrders);
-        golvDessertAdapter = new DishAdapter(new ArrayList<>());
+        golvDessertAdapter = new OrderAdapter(new ArrayList<>());
         golvDessertView.setLayoutManager(new LinearLayoutManager(getContext()));
         golvDessertView.setAdapter(golvDessertAdapter);
 
@@ -110,7 +110,8 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
                 } else {
                     Log.e("ApiService", "API request failed: " + response.message());
 
-                }            }
+                }
+            }
 
             @Override
             public void onFailure(Call<List<OrderTemp>> call, Throwable t) {
@@ -121,6 +122,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
         });
     }
     private void setOrderList(List<OrderTemp> orderApiList){
+
         if(orderApiList != null) {
             if (!orderApiList.isEmpty()) {
                 List<TableOrder> tableOrderList = new ArrayList<>();
@@ -129,27 +131,46 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
                 }
                 for (TableOrder tableOrder : tableOrderList) {
                     if (tableOrder.getTable() == tableId) {
-                            List<Dish> starterList = new ArrayList<>();
-                            List<Dish> mainCourseList = new ArrayList<>();
-                            List<Dish> dessertList = new ArrayList<>();
+                            List<OrderApi> starterList = new ArrayList<>();
+                            List<OrderApi> mainCourseList = new ArrayList<>();
+                            List<OrderApi> dessertList = new ArrayList<>();
                             for (OrderApi orderApi : tableOrder.getOrderList()) {
                                 switch (orderApi.getTagID()) {
                                     case 1:
-                                        starterList.add(orderApi.getDish());
+                                        starterList.add(orderApi);
                                         break;
                                     case 2:
-                                        mainCourseList.add(orderApi.getDish());
+                                        mainCourseList.add(orderApi);
                                         break;
                                     case 3:
-                                        dessertList.add(orderApi.getDish());
+                                        dessertList.add(orderApi);
                                         break;
                                 }
                             }
-                            golvStarterAdapter = new DishAdapter(starterList);
+
+                            golvStarterAdapter = new OrderAdapter(starterList){
+                                @Override
+                                public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+                                    OrderApi order = starterList.get(position);
+                                    holder.getOrder().setText(order.getDish().getTitle());
+                                }
+                            };
                             golvStarterView.setAdapter(golvStarterAdapter);
-                            golvMainCourseAdapter = new DishAdapter(mainCourseList);
+                            golvMainCourseAdapter = new OrderAdapter(mainCourseList){
+                                @Override
+                                public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+                                    OrderApi order = mainCourseList.get(position);
+                                    holder.getOrder().setText(order.getDish().getTitle());
+                                }
+                            };
                             golvMainCourseView.setAdapter(golvMainCourseAdapter);
-                            golvDessertAdapter = new DishAdapter(dessertList);
+                            golvDessertAdapter = new OrderAdapter(dessertList){
+                                @Override
+                                public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+                                    OrderApi order = dessertList.get(position);
+                                    holder.getOrder().setText(order.getDish().getTitle());
+                                }
+                            };
                             golvDessertView.setAdapter(golvDessertAdapter);
                     }
                 }

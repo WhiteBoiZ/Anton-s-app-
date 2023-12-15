@@ -37,7 +37,7 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
     private List<OrderTemp> orderApiList;
 
     private Handler handler = new Handler();
-    private final int delayMillis = 1000;
+    private final int delayMillis = 10000;
 
     private void deleteDish(int id, int orderId, int dishId) {
         ApiService apiService = ApiService.getInstance();
