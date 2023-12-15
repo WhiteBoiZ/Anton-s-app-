@@ -90,7 +90,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
         golvDessertView.setLayoutManager(new LinearLayoutManager(getContext()));
         golvDessertView.setAdapter(golvDessertAdapter);
 
-        // Fetch and display data for the specific table (column 2 and 3)
+
         tableId = Integer.parseInt(getArguments().getString("tableID"));
         fetchDataForTable(tableId); // Implement this method to fetch data for both columns
         return view;
@@ -109,13 +109,13 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
                     setOrderList(orderApiList);
                 } else {
                     Log.e("ApiService", "API request failed: " + response.message());
-                    // Handle the error here
+
                 }            }
 
             @Override
             public void onFailure(Call<List<OrderTemp>> call, Throwable t) {
                 Log.e("ApiService", "API request failed: " + t.getMessage());
-                // Handle the failure here
+
             }
 
         });
