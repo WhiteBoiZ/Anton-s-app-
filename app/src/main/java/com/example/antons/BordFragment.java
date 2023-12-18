@@ -46,7 +46,6 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
     private Handler handler = new Handler();
     private final int delayMillis = 1000;
 
-    private Boolean toogledone = false;
 
 
     private int tableId;
@@ -100,6 +99,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
 
         tableId = Integer.parseInt(getArguments().getString("tableID"));
         startFetchingData(); // Implement this method to fetch data for both columns
+
         return view;
     }
 
@@ -144,8 +144,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
                             for (OrderApi orderApi : tableOrder.getOrderList()) {
                                 switch (orderApi.getTagID()) {
                                     case 1:
-                                        if(orderApi.getOrder().isStartDone() ==true && toogledone == false){
-                                            golvStarterViewTextButton.setBackground(getResources().getDrawable(R.drawable.state_nejdone));
+                                        if(!orderApi.getOrder().isStartDone()){
                                             starterList.add(orderApi);
                                         }
                                         break;
@@ -153,13 +152,11 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
                                         if(!orderApi.getOrder().isMainDone()){
                                             mainCourseList.add(orderApi);
                                         }
-
                                         break;
                                     case 3:
                                         if(!orderApi.getOrder().isDessertDone()){
                                             dessertList.add(orderApi);
                                         }
-
                                         break;
                                 }
                             }

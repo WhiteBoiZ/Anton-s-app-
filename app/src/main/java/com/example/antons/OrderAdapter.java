@@ -94,7 +94,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         OrderApi order = tableOrders.get(position);
-        holder.time.setText(order.getOrder().getTime());
+        //holder.time.setText(order.getOrder().getTime());
         holder.order.setText(order.getDish().getTitle());
     }
 

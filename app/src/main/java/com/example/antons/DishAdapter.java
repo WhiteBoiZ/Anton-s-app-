@@ -67,8 +67,8 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position){
         Dish dish = dishList.get(position);
         holder.getTitle().setText(dish.getTitle());
-        holder.setType(holder.itemView.findViewById(R.id.typeText));
-        holder.getType().setText(dish.getType().getName());
+        //holder.setType(holder.itemView.findViewById(R.id.typeText));
+        //holder.getType().setText(dish.getType().getName());
     }
 
     @Override

@@ -46,7 +46,7 @@ public class Dish {
     @SerializedName("typ")
     private Type type;
     @SerializedName("vald")
-    private int picked;
+    private boolean picked;
 
     public String getDescription() {
         return description;
@@ -68,7 +68,7 @@ public class Dish {
         return type;
     }
 
-    public int getPicked() {
+    public boolean getPicked() {
         return picked;
     }
 
@@ -92,7 +92,7 @@ public class Dish {
         this.type = type;
     }
 
-    public void setPicked(int picked) {
+    public void setPicked(boolean picked) {
         this.picked = picked;
     }
 
