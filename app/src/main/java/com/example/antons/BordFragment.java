@@ -144,8 +144,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
                             for (OrderApi orderApi : tableOrder.getOrderList()) {
                                 switch (orderApi.getTagID()) {
                                     case 1:
-                                        if(orderApi.getOrder().isStartDone() ==true && toogledone == false){
-                                            golvStarterViewTextButton.setBackground(getResources().getDrawable(R.drawable.state_nejdone));
+                                        if(!orderApi.getOrder().isStartDone() ==true){
                                             starterList.add(orderApi);
                                         }
                                         break;
