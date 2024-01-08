@@ -32,8 +32,6 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
     private RecyclerView mainCourseView;
     private RecyclerView dessertView;
 
-    //private List<OrderApi> orderList;
-
     private List<OrderTemp> orderApiList;
 
     private Handler handler = new Handler();
@@ -131,35 +129,29 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
         setContentView(R.layout.kitchen_main);
 
         Button backButton = findViewById(R.id.backButton);
-        //Button selectedButton = findViewById(R.id.kokButton);
         Button finishStartersButton = findViewById(R.id.finishStarters);
         Button finishMainCoursesButton = findViewById(R.id.finishMainCourse);
         Button finishDessertButton = findViewById(R.id.finishDesserts);
-        //selectedButton.setBackgroundResource(R.drawable.selected_button);
 
-;
         startFetchingData();
 
         orderView = findViewById(R.id.orderView);
 
 
-        //List<TableOrder> tableOrderList = new ArrayList<>();
-
-
-
-
-
-
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // This will close the current activity and take you back to the previous activity
                 finish();
             }
         });
 
 
 
+        /*
+         * On-click handler if the finish main course button is pressed.
+         * Clears the list of the dishes.
+         * Marks the dishes as finished in the database.
+         * */
         finishStartersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -184,6 +176,11 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
             }
         });
 
+        /*
+         * On-click handler if the finish main course button is pressed.
+         * Clears the list of the dishes.
+         * Marks the dishes as finished in the database.
+         * */
         finishMainCoursesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -211,6 +208,12 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
         });
 
 
+
+        /*
+        * On-click handler if the finish dessert button is pressed.
+        * Clears the list of the dishes.
+        * Marks the dishes as finished in the database.
+        * */
         finishDessertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -253,12 +256,18 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
         // Post the runnable for the first time
         handler.post(fetchDataRunnable);
     }
+
     @Override
     protected void onStart() {
         super.onStart();
     }
 
 
+    /*
+    * Checks if an order should be added to the list when it is fetched from the API.
+    * If the whole order is marked as done it will not be added.
+    * If any part of an order is still not marked as done it is added to the list of orders.
+    * */
     private Boolean shouldBeAdded(OrderTemp orderTemp){
         if(orderTemp.isDone()){
             return false;
