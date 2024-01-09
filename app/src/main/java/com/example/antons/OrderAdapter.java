@@ -12,7 +12,7 @@ import java.util.List;
 
 
 /*
- * Class for creating a dynamic list using a recyclerview to display data from the class "Order".
+ * Class for creating a dynamic list using a recyclerview to display data from the class "OrderApi".
  * */
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
 
@@ -94,7 +94,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         OrderApi order = tableOrders.get(position);
-        //holder.time.setText(order.getOrder().getTime());
         holder.order.setText(order.getDish().getTitle());
     }
 
@@ -113,15 +112,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     public void clear(){
         this.tableOrders.clear();
         this.notifyItemRangeRemoved(0,getItemCount());
-    }
-
-    public void add(OrderApi order){
-        this.tableOrders.add(order);
-        this.notifyItemInserted(tableOrders.size()-1);
-    }
-
-    public List<OrderApi> getTableOrders() {
-        return tableOrders;
     }
 
 

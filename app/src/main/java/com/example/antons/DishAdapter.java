@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Class for creating a dynamic list using a recyclerview to display data from the class "Dish".
+ * */
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder>{
 
 
@@ -22,6 +25,10 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder>{
         this.dishList = dishList;
     }
 
+    /*
+     * Custom ViewHolder for the recyclerview.
+     * Using the views in the "add_order" layout.
+     * */
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
 
@@ -52,7 +59,9 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder>{
 
     }
 
-
+    /*
+     * Method for creating new views in the list.
+     * */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -63,12 +72,13 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder>{
 
     }
 
+    /*
+     * Sets the content to the textview.
+     * */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position){
         Dish dish = dishList.get(position);
         holder.getTitle().setText(dish.getTitle());
-        //holder.setType(holder.itemView.findViewById(R.id.typeText));
-        //holder.getType().setText(dish.getType().getName());
     }
 
     @Override
@@ -84,6 +94,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder>{
     public List<Dish> getSelectedDishes(){
         return this.dishList;
     }
+
 
     public void clear(){
         this.dishList.clear();

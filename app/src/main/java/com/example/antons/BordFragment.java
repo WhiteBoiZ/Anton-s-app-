@@ -27,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
+//Fragment for creating an order to a table
 public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrder{
 
 
@@ -53,6 +53,9 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
     private RecyclerView golvStarterView, golvMainCourseView, golvDessertView;
     private OrderAdapter golvStarterAdapter, golvMainCourseAdapter, golvDessertAdapter;
 
+    /*
+     * Creates a new fragment.
+     */
     public static BordFragment newInstance(String table){
         BordFragment bordFragment = new BordFragment();
         Bundle args = new Bundle();
@@ -217,7 +220,10 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
 
     }
 
-
+    /*
+    * On-click handler when adding new dishes to the order.
+    * Creates a new fragment of the type AddOrderFragment
+    * */
     public void onClick(View view){
         if(view.getId() == R.id.addStarter){
             System.out.println("Förrätt");
@@ -323,7 +329,10 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
 
     }
 
-    //Gets the selected data from "AddOrderFragment".
+    /*
+    * Implements the method from the interface OnPassOrder in AddOrderFragment.
+    * Gets the selected data from AddOrderFragment and assigns it to list in the current fragment.
+    * */
     @Override
     public void onDataPassed(List<Dish> list, String type) {
         if(!list.isEmpty()){
