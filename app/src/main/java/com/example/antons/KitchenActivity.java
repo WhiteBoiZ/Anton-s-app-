@@ -1,6 +1,5 @@
 package com.example.antons;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -32,7 +30,7 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
     private RecyclerView mainCourseView;
     private RecyclerView dessertView;
 
-    private List<OrderTemp> orderApiList;
+    private List<OrderWithDishes> orderApiList;
 
     private Handler handler = new Handler();
     private final int delayMillis = 10000;
@@ -157,7 +155,7 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
             public void onClick(View view) {
                 if(starterOrderAdapter == null){return;}
                 if(starterOrderAdapter.getItemCount() != 0){
-                    OrderApi order = starterOrderAdapter.getItem(0);
+                    DishInstance order = starterOrderAdapter.getItem(0);
                     starterOrderAdapter.clear();
                     System.out.println(order.getTagID());
                     setDishesAsFinished(order.getOrder().getId(), order.getTagID());
@@ -186,7 +184,7 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
             public void onClick(View view) {
                 if(mainCourseOrderAdapter == null){return;}
                 if(mainCourseOrderAdapter.getItemCount() != 0){
-                    OrderApi order = mainCourseOrderAdapter.getItem(0);
+                    DishInstance order = mainCourseOrderAdapter.getItem(0);
                     mainCourseOrderAdapter.clear();
                     System.out.println(order.getTagID());
 
@@ -219,7 +217,7 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
             public void onClick(View view) {
                 if(dessertOrderAdapter == null){return;}
                 if(dessertOrderAdapter.getItemCount() != 0){
-                    OrderApi order = dessertOrderAdapter.getItem(0);
+                    DishInstance order = dessertOrderAdapter.getItem(0);
                     dessertOrderAdapter.clear();
                     System.out.println(order.getTagID());
                     setDishesAsFinished(order.getOrder().getId(), order.getTagID());
@@ -268,17 +266,17 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
     * If the whole order is marked as done it will not be added.
     * If any part of an order is still not marked as done it is added to the list of orders.
     * */
-    private Boolean shouldBeAdded(OrderTemp orderTemp){
-        if(orderTemp.isDone()){
+    private Boolean shouldBeAdded(OrderWithDishes orderWithDishes){
+        if(orderWithDishes.isDone()){
             return false;
         }
-        if(!orderTemp.getOrderInfo().isStartDone() && orderTemp.getSelectedList().stream().anyMatch(item -> item.getTagID() == 1)){
+        if(!orderWithDishes.getOrderInfo().isStartDone() && orderWithDishes.getSelectedList().stream().anyMatch(item -> item.getTagID() == 1)){
             return true;
         }
-        if(!orderTemp.getOrderInfo().isMainDone() && orderTemp.getSelectedList().stream().anyMatch(item -> item.getTagID() == 2)){
+        if(!orderWithDishes.getOrderInfo().isMainDone() && orderWithDishes.getSelectedList().stream().anyMatch(item -> item.getTagID() == 2)){
             return true;
         }
-        if(!orderTemp.getOrderInfo().isDessertDone() && orderTemp.getSelectedList().stream().anyMatch(item -> item.getTagID() == 3)){
+        if(!orderWithDishes.getOrderInfo().isDessertDone() && orderWithDishes.getSelectedList().stream().anyMatch(item -> item.getTagID() == 3)){
             return true;
         }
         return false;
@@ -288,13 +286,13 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
     /*
      * Attach the fetched orders to the recyclerview.
      * */
-    private void setOrderList(List<OrderTemp> orderApiList){
+    private void setOrderList(List<OrderWithDishes> orderApiList){
         if(orderApiList != null) {
             if (!orderApiList.isEmpty()) {
                 List<TableOrder> tableOrderList = new ArrayList<>();
-                for (OrderTemp orderTemp : orderApiList) {
-                    if(shouldBeAdded(orderTemp)) {
-                        tableOrderList.add(new TableOrder(orderTemp.getSelectedList(), orderTemp.getOrderInfo().getTableID(), orderTemp.getOrderInfo().getTime()));
+                for (OrderWithDishes orderWithDishes : orderApiList) {
+                    if(shouldBeAdded(orderWithDishes)) {
+                        tableOrderList.add(new TableOrder(orderWithDishes.getSelectedList(), orderWithDishes.getOrderInfo().getTableID(), orderWithDishes.getOrderInfo().getTime()));
                     }
                 }
                 tableOrderAdapter = new TableOrderAdapter(tableOrderList);
@@ -311,9 +309,9 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
     private void fetchOrders(){
         ApiService apiService = ApiService.getInstance();
 
-        apiService.fetchOrders(new Callback<List<OrderTemp>>() {
+        apiService.fetchOrders(new Callback<List<OrderWithDishes>>() {
             @Override
-            public void onResponse(Call<List<OrderTemp>> call, Response<List<OrderTemp>> response) {
+            public void onResponse(Call<List<OrderWithDishes>> call, Response<List<OrderWithDishes>> response) {
                 if (response.isSuccessful()) {
                     Log.d("ApiService", "API request successful: " + response);
                     orderApiList = response.body();
@@ -325,7 +323,7 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
                 }            }
 
             @Override
-            public void onFailure(Call<List<OrderTemp>> call, Throwable t) {
+            public void onFailure(Call<List<OrderWithDishes>> call, Throwable t) {
                 Log.e("ApiService", "API request failed: " + t.getMessage());
                 // Handle the failure here
             }
@@ -341,10 +339,10 @@ public class KitchenActivity extends AppCompatActivity implements TableOrderAdap
     * Connects the adapters to each view.
     * */
     @Override
-    public void tableOnClick(int tableID, List<OrderApi> orderList){
-        List<OrderApi> starterList = new ArrayList<>();
-        List<OrderApi> mainCourseList = new ArrayList<>();
-        List<OrderApi> dessertList = new ArrayList<>();
+    public void tableOnClick(int tableID, List<DishInstance> orderList){
+        List<DishInstance> starterList = new ArrayList<>();
+        List<DishInstance> mainCourseList = new ArrayList<>();
+        List<DishInstance> dessertList = new ArrayList<>();
         for(int i = 0; i<orderList.size();++i){
             if(orderList.get(i).getOrder().getTableID() == tableID){
                 System.out.println("Bord" + tableID);

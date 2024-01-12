@@ -3,13 +3,9 @@ package com.example.antons;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.PATCH;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -18,11 +14,11 @@ public interface MyApi {
     Call<List<Dish>> getDishes();
 
     @GET("api/bestallning/all/withrattinstans")
-    Call<List<OrderTemp>> getOrders();
+    Call<List<OrderWithDishes>> getOrders();
 
 
     @POST("api/bestallning")
-    Call<OrderTest> addOrder(
+    Call<Order> addOrder(
             @Query("datum") String date,
             @Query("tid") String time,
             @Query("kommentar") String comment,

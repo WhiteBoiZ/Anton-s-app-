@@ -42,7 +42,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
     private Button golvMainCourseViewTextButton;
     private Button golvDessertViewTextButton;
 
-    private List<OrderTemp> orderApiList;
+    private List<OrderWithDishes> orderApiList;
     private Handler handler = new Handler();
     private final int delayMillis = 1000;
 
@@ -109,9 +109,9 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
     private void fetchDataForTable(int tableId) {
         ApiService apiService = ApiService.getInstance();
 
-        apiService.fetchOrders(new Callback<List<OrderTemp>>() {
+        apiService.fetchOrders(new Callback<List<OrderWithDishes>>() {
             @Override
-            public void onResponse(Call<List<OrderTemp>> call, Response<List<OrderTemp>> response) {
+            public void onResponse(Call<List<OrderWithDishes>> call, Response<List<OrderWithDishes>> response) {
                 if (response.isSuccessful()) {
                     Log.d("ApiService", "API request successful: " + response);
                     orderApiList = response.body();
@@ -124,41 +124,41 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
             }
 
             @Override
-            public void onFailure(Call<List<OrderTemp>> call, Throwable t) {
+            public void onFailure(Call<List<OrderWithDishes>> call, Throwable t) {
                 Log.e("ApiService", "API request failed: " + t.getMessage());
 
             }
 
         });
     }
-    private void setOrderList(List<OrderTemp> orderApiList){
+    private void setOrderList(List<OrderWithDishes> orderApiList){
 
         if(orderApiList != null) {
             if (!orderApiList.isEmpty()) {
                 List<TableOrder> tableOrderList = new ArrayList<>();
-                for (OrderTemp orderTemp : orderApiList) {
-                    tableOrderList.add(new TableOrder(orderTemp.getSelectedList(), orderTemp.getOrderInfo().getTableID(), orderTemp.getOrderInfo().getTime()));
+                for (OrderWithDishes orderWithDishes : orderApiList) {
+                    tableOrderList.add(new TableOrder(orderWithDishes.getSelectedList(), orderWithDishes.getOrderInfo().getTableID(), orderWithDishes.getOrderInfo().getTime()));
                 }
                 for (TableOrder tableOrder : tableOrderList) {
                     if (tableOrder.getTable() == tableId) {
-                            List<OrderApi> starterList = new ArrayList<>();
-                            List<OrderApi> mainCourseList = new ArrayList<>();
-                            List<OrderApi> dessertList = new ArrayList<>();
-                            for (OrderApi orderApi : tableOrder.getOrderList()) {
-                                switch (orderApi.getTagID()) {
+                            List<DishInstance> starterList = new ArrayList<>();
+                            List<DishInstance> mainCourseList = new ArrayList<>();
+                            List<DishInstance> dessertList = new ArrayList<>();
+                            for (DishInstance dishInstance : tableOrder.getOrderList()) {
+                                switch (dishInstance.getTagID()) {
                                     case 1:
-                                        if(!orderApi.getOrder().isStartDone()){
-                                            starterList.add(orderApi);
+                                        if(!dishInstance.getOrder().isStartDone()){
+                                            starterList.add(dishInstance);
                                         }
                                         break;
                                     case 2:
-                                        if(!orderApi.getOrder().isMainDone()){
-                                            mainCourseList.add(orderApi);
+                                        if(!dishInstance.getOrder().isMainDone()){
+                                            mainCourseList.add(dishInstance);
                                         }
                                         break;
                                     case 3:
-                                        if(!orderApi.getOrder().isDessertDone()){
-                                            dessertList.add(orderApi);
+                                        if(!dishInstance.getOrder().isDessertDone()){
+                                            dessertList.add(dishInstance);
                                         }
                                         break;
                                 }
@@ -167,7 +167,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
                             golvStarterAdapter = new OrderAdapter(starterList){
                                 @Override
                                 public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-                                    OrderApi order = starterList.get(position);
+                                    DishInstance order = starterList.get(position);
                                     holder.getOrder().setText(order.getDish().getTitle());
                                 }
                             };
@@ -175,7 +175,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
                             golvMainCourseAdapter = new OrderAdapter(mainCourseList){
                                 @Override
                                 public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-                                    OrderApi order = mainCourseList.get(position);
+                                    DishInstance order = mainCourseList.get(position);
                                     holder.getOrder().setText(order.getDish().getTitle());
                                 }
                             };
@@ -183,7 +183,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
                             golvDessertAdapter = new OrderAdapter(dessertList){
                                 @Override
                                 public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-                                    OrderApi order = dessertList.get(position);
+                                    DishInstance order = dessertList.get(position);
                                     holder.getOrder().setText(order.getDish().getTitle());
                                 }
                             };
@@ -292,10 +292,10 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         String date = currentDate.format(dateFormatter);
         String time = currentTime.format(timeFormatter);
-        Call<OrderTest> call = myApi.addOrder(date, time, "comment", tableId);
-        call.enqueue(new Callback<OrderTest>() {
+        Call<Order> call = myApi.addOrder(date, time, "comment", tableId);
+        call.enqueue(new Callback<Order>() {
             @Override
-            public void onResponse(Call<OrderTest> call, Response<OrderTest> response) {
+            public void onResponse(Call<Order> call, Response<Order> response) {
                 if (response.isSuccessful()) {
                     // Handle successful response
                     Log.d("ApiService", "Create order POST request successful");
@@ -321,7 +321,7 @@ public class BordFragment extends Fragment implements AddOrderFragment.OnPassOrd
                 }
             }
             @Override
-            public void onFailure(Call<OrderTest> call, Throwable t) {
+            public void onFailure(Call<Order> call, Throwable t) {
                 // Handle failure
                 Log.e("ApiService", "Create order POST request failed: " + t.getMessage());
             }

@@ -16,10 +16,10 @@ import java.util.List;
  * */
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
 
-    private List<OrderApi> tableOrders;
+    private List<DishInstance> tableOrders;
 
 
-    public OrderAdapter(List<OrderApi> tableOrders){
+    public OrderAdapter(List<DishInstance> tableOrders){
         this.tableOrders = tableOrders;
     }
 
@@ -93,7 +93,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
      * */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        OrderApi order = tableOrders.get(position);
+        DishInstance order = tableOrders.get(position);
         holder.order.setText(order.getDish().getTitle());
     }
 
@@ -102,7 +102,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         return tableOrders.size();
     }
 
-    public OrderApi getItem(int position){
+    public DishInstance getItem(int position){
         return this.tableOrders.get(position);
     }
 

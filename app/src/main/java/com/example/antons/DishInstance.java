@@ -2,9 +2,11 @@ package com.example.antons;
 
 import com.google.gson.annotations.SerializedName;
 
-public class OrderApi {
-
-
+/**
+ * DishInstance class
+ * Class that maps to the API-endpoint for dish instances.
+ */
+public class DishInstance {
 
     private static class Tag {
         @SerializedName("id")
@@ -40,7 +42,7 @@ public class OrderApi {
     private Dish dish;
 
     @SerializedName("bestallning")
-    private OrderTest order;
+    private Order order;
 
     @SerializedName("id")
     private int id;
@@ -65,11 +67,11 @@ public class OrderApi {
         this.dish = dish;
     }
 
-    public OrderTest getOrder() {
+    public Order getOrder() {
         return order;
     }
 
-    public void setOrder(OrderTest order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
 

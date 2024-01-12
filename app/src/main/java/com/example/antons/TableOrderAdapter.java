@@ -88,7 +88,7 @@ public class TableOrderAdapter extends RecyclerView.Adapter<TableOrderAdapter.Vi
     * Method for the function that handles the click on an item in the recyclerview.
     * */
     public interface OnTableClickListener{
-        void tableOnClick(int tableID, List<OrderApi> orderList);
+        void tableOnClick(int tableID, List<DishInstance> orderList);
     }
 
     public void setOnTableClickListener(OnTableClickListener onClickListener){

@@ -4,13 +4,17 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class OrderTemp {
+/**
+ * OrderWithDishes class
+ * Class that maps to the API-endpoint for orders with all dishes in that order included
+ */
+public class OrderWithDishes {
     @SerializedName("bestallning")
-    private OrderTest orderInfo;
+    private Order orderInfo;
     @SerializedName("rattInstanser")
-    private List<OrderApi> selectedList;
+    private List<DishInstance> selectedList;
 
-    public OrderTest getOrderInfo() {
+    public Order getOrderInfo() {
         return orderInfo;
     }
 
@@ -18,15 +22,15 @@ public class OrderTemp {
         return (this.orderInfo.isStartDone() && this.orderInfo.isMainDone() && this.orderInfo.isDessertDone());
     }
 
-    public void setOrderInfo(OrderTest orderInfo) {
+    public void setOrderInfo(Order orderInfo) {
         this.orderInfo = orderInfo;
     }
 
-    public List<OrderApi> getSelectedList() {
+    public List<DishInstance> getSelectedList() {
         return selectedList;
     }
 
-    public void setSelectedList(List<OrderApi> selectedList) {
+    public void setSelectedList(List<DishInstance> selectedList) {
         this.selectedList = selectedList;
     }
 }

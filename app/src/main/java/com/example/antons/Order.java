@@ -1,31 +1,144 @@
 package com.example.antons;
 
+import com.google.gson.annotations.SerializedName;
+
+/**
+ * Order class
+ * Class that maps to the API-endpoint for orders
+ */
 public class Order {
-    private String table;
-    private String order;
 
-    private String time;
+    private static class Table {
+        @SerializedName("id")
+        private int id;
+        @SerializedName("status")
+        private String status;
 
-    private String type;
+        public int getId() {
+            return id;
+        }
 
-    public Order(String table, String order, String time, String type){
-        this.table = table;
-        this.order = order;
-        this.time = time;
-        this.type = type;
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        @Override
+        public String toString() {
+            return "Table{" +
+                    "id=" + id +
+                    ", status='" + status + '\'' +
+                    '}';
+        }
     }
 
-    public String getTable(){
+    @SerializedName("id")
+    private int id;
+    @SerializedName("datum")
+    private String date;
+    @SerializedName("tid")
+    private String time;
+    @SerializedName("kommentar")
+    private String comment;
+    @SerializedName("bordId")
+    private Table table;
+
+    @SerializedName("forrattKlar")
+    private boolean startDone;
+    @SerializedName("varmrattKlar")
+    private boolean mainDone;
+
+    @SerializedName("efterrattKlar")
+    private boolean dessertDone;
+
+    public boolean isStartDone() {
+        return startDone;
+    }
+
+    public void setStartDone(boolean startDone) {
+        this.startDone = startDone;
+    }
+
+    public boolean isMainDone() {
+        return mainDone;
+    }
+
+    public void setMainDone(boolean mainDone) {
+        this.mainDone = mainDone;
+    }
+
+    public boolean isDessertDone() {
+        return dessertDone;
+    }
+
+    public void setDessertDone(boolean dessertDone) {
+        this.dessertDone = dessertDone;
+    }
+
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Table getTable() {
         return table;
     }
 
-    public String getOrder(){
-        return order;
+    public int getTableID() {return table.getId();}
+
+    public void setTable(Table table) {
+        this.table = table;
     }
 
-    public String getTime() {return time;}
-
-    public String getType() {return type;}
+    @Override
+    public String toString() {
+        return "OrderTest{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", comment='" + comment + '\'' +
+                ", table=" + table +
+                ", startDone=" + startDone +
+                ", mainDone=" + mainDone +
+                ", dessertDone=" + dessertDone +
+                '}';
+    }
 
 
 }

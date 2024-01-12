@@ -3,12 +3,12 @@ package com.example.antons;
 import java.util.List;
 
 public class TableOrder {
-    private List<OrderApi> orderList;
+    private List<DishInstance> orderList;
     private int tableID;
 
     private String time;
 
-    public TableOrder(List<OrderApi> orderList, int tableID, String time) {
+    public TableOrder(List<DishInstance> orderList, int tableID, String time) {
         this.orderList = orderList;
         this.tableID = tableID;
         this.time = time;
@@ -23,7 +23,7 @@ public class TableOrder {
         return this.tableID;
     }
 
-    public List<OrderApi> getOrderList(){
+    public List<DishInstance> getOrderList(){
         return this.orderList;
     }
 

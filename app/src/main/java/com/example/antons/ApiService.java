@@ -1,6 +1,5 @@
 package com.example.antons;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -8,6 +7,11 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * ApiService class
+ * Singleton
+ * Handles API-requests using retrofit
+ */
 public class ApiService {
 
     // Ersätt IP_ADDRESS i BASE_URL med egen IP här och i network_security_config.xml
@@ -31,8 +35,8 @@ public class ApiService {
         return instance;
     }
 
-    public void fetchOrders(Callback<List<OrderTemp>> callback) {
-        Call<List<OrderTemp>> call = myApi.getOrders();
+    public void fetchOrders(Callback<List<OrderWithDishes>> callback) {
+        Call<List<OrderWithDishes>> call = myApi.getOrders();
         call.enqueue(callback);
     }
 
